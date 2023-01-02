@@ -1,35 +1,38 @@
 import { StatusBadge } from "./StatusBadge";
 
-;
+const rows = [
+    {
+        id: 1,
+        title: 'Hepatic Infraction',
+        doctor: '',
+        createdAt: '22/02/2021',
+        status: 'pending',
+    },
+    {
+        id:2,
+        title: 'Pancreatis Acute',
+        doctor: 'Dr. John Doe',
+        createdAt: '22/02/2021',
+        status: 'in_progress',
+    },
+    {
+        id:3,
+        title: 'Bone marrow failure',
+        doctor: 'Dr. John Doe',
+        createdAt: '22/02/2021',
+        status: 'done',
+    },
+];
 
 export const SubmissionsTable = () => {
-    const rows = [
-        {
-            title: 'Hepatic Infraction',
-            doctor: '',
-            createdAt: '22/02/2021',
-            status: 'pending',
-        },
-        {
-            title: 'Pancreatis Acute',
-            doctor: 'Dr. John Doe',
-            createdAt: '22/02/2021',
-            status: 'in_progress',
-        },
-        {
-            title: 'Bone marrow failure',
-            doctor: 'Dr. John Doe',
-            createdAt: '22/02/2021',
-            status: 'done',
-        },
-    ];
-
     return (
         <>
             <div className="flex justify-end mt-6">
                 <select 
                     id="statusSelectBox" 
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/5 mb-2">
+                    className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 
+                                focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 
+                                dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 w-1/5 mb-2 mr-4`}>
                     <option selected>All submissions</option>
                     <option value="pending">Pending</option>
                     <option value="in_progress">In Progress</option>
@@ -61,7 +64,7 @@ export const SubmissionsTable = () => {
                     <tbody>
                         {
                             rows.map((row, index) => (
-                                <tr key={index} className="odd:bg-white even:bg-slate-50">
+                                <tr key={row.id} className="odd:bg-white even:bg-slate-50">
                                     <td className="py-4 px-6">
                                         {row.title}
                                     </td>

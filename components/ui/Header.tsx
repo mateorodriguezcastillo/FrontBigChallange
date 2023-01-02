@@ -45,8 +45,6 @@ export const Header: FC<Props> = ({ title, subtitle, status, date, doctor }) => 
                     }
                 </div>
             </div>
-
-            <hr className="mb-6" />
         </>
     )
 }

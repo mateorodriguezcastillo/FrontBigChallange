@@ -2,17 +2,17 @@ import { NoPrescriptionIcon } from '../../components/icons';
 import { HomeLayout } from '../../components/layout/HomeLayout';
 import { SubmissionTextBox } from '../../components/submissions';
 import { Header } from '../../components/ui';
-const id = () => {
+const SubmissionPage = () => {
     return (
         <HomeLayout title={'View submission'} pageDescription={'Information of the requested submission'}>
             <div className="overflow-x-auto relative mt-6 mr-10 ml-10">
-                <Header 
-                    title='Hepatic Infraction' 
-                    status='pending' 
-                    date='3/4/16' 
+                <Header
+                    title='Hepatic Infraction'
+                    status='pending'
+                    date='3/4/16'
                     doctor='Dr. John Doe, MD'
                 />
-
+                <hr className="mb-6" />
                 <div className='flex flex-col mt-6 ml-2'>
                     <div className='columns-2 gap-1'>
                         <SubmissionTextBox
@@ -32,10 +32,9 @@ const id = () => {
                         <h3 className='text-sm text-gray-500 mb-1'>
                             Prescriptions
                         </h3>
-                        {/* TODO: Allign middle text with icon */}
                         <div className='flex w-full bg-gray-100 p-2 rounded-lg'>
                             <NoPrescriptionIcon className='mr-3 ml-4' />
-                            <span className='text-sm text-gray-800 inline-block align-middle'>
+                            <span className='text-sm text-gray-800 mt-auto mb-auto'>
                                 No prescriptions have been added yet.
                             </span>
                         </div>
@@ -46,4 +45,4 @@ const id = () => {
     )
 }
 
-export default id
+export default SubmissionPage

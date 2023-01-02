@@ -10,6 +10,7 @@ const PatientInformationPage = () => {
                     title={"Patient information"}
                     subtitle={"You need to complete your profile before adding a submission"}
                 />
+                <hr className="mb-6" />
                 <div className='m-2'>
                     <TextInput inputName='phone' />
                     <div className="flex w-1/2">

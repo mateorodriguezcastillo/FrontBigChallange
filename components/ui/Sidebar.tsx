@@ -22,7 +22,7 @@ export const Sidebar = () => {
                         <ul className="space-y-2">
                             {
                                 tabs.map((tab, index) => (
-                                    <li key={index}>
+                                    <li key={tab.href}>
                                         <a
                                             href={tab.href}
                                             className="flex items-center p-3 text-base font-normal text-white rounded-lg hover:bg-gray-700"
