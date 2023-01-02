@@ -2,11 +2,10 @@ import { FC } from "react";
 import { tw } from "../../utils";
 
 interface IconProps {
-  onClick?: () => void;
   className?: string;
 }
 
-export const ArrowIcon: FC<IconProps> = ({ onClick, className }) => {
+export const ArrowIcon: FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +14,6 @@ export const ArrowIcon: FC<IconProps> = ({ onClick, className }) => {
       stroke-width="1.5"
       stroke="currentColor"
       className={tw("h-6 w-6 cursor-pointer", className)}
-      onClick={onClick}
     >
       <path
         stroke-linecap="round"
@@ -26,7 +24,7 @@ export const ArrowIcon: FC<IconProps> = ({ onClick, className }) => {
   );
 };
 
-export const HomeIcon: FC<IconProps> = () => {
+export const HomeIcon: FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +32,7 @@ export const HomeIcon: FC<IconProps> = () => {
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      className="h-5 w-5"
+      className={tw("h-5 w-5", className)}
     >
       <path
         stroke-linecap="round"
@@ -45,7 +43,7 @@ export const HomeIcon: FC<IconProps> = () => {
   );
 };
 
-export const NewSubmissionIcon: FC<IconProps> = () => {
+export const NewSubmissionIcon: FC<IconProps> = ({ className }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -53,7 +51,7 @@ export const NewSubmissionIcon: FC<IconProps> = () => {
       viewBox="0 0 24 24"
       stroke-width="1.5"
       stroke="currentColor"
-      className="h-5 w-5"
+      className={tw("h-5 w-5", className)}
     >
       <path
         stroke-linecap="round"

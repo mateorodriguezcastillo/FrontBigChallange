@@ -2,12 +2,12 @@ import { FC } from "react";
 import { tw } from "../../utils";
 var _ = require("lodash");
 
-interface Props {
+interface TextInputProps {
   inputName: string;
   className?: string;
 }
 
-export const TextInput: FC<Props> = ({ inputName, className }) => {
+export const TextInput: FC<TextInputProps> = ({ inputName, className }) => {
   return (
     <div className={"flex flex-grow flex-col"}>
       <label

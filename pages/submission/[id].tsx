@@ -2,6 +2,8 @@ import { NoPrescriptionIcon } from "../../components/icons";
 import { HomeLayout } from "../../components/layout/HomeLayout";
 import { SubmissionTextBox } from "../../components/submissions";
 import { Header } from "../../components/ui";
+import { StatusEnum } from "../../components/submissions";
+
 const SubmissionPage = () => {
   return (
     <HomeLayout
@@ -11,7 +13,7 @@ const SubmissionPage = () => {
       <div className="relative mt-6 mr-10 ml-10 overflow-x-auto">
         <Header
           title="Hepatic Infraction"
-          status="pending"
+          status={StatusEnum.Pending}
           date="3/4/16"
           doctor="Dr. John Doe, MD"
         />

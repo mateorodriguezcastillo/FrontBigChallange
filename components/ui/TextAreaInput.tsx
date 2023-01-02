@@ -1,11 +1,11 @@
 import { FC } from "react";
 var _ = require("lodash");
 
-interface Props {
+interface TextAreaInputProps {
   inputName: string;
 }
 
-export const TextAreaInput: FC<Props> = ({ inputName }) => {
+export const TextAreaInput: FC<TextAreaInputProps> = ({ inputName }) => {
   return (
     <>
       <label

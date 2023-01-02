@@ -1,4 +1,4 @@
-import { StatusBadge } from "./StatusBadge";
+import { StatusBadge, StatusEnum } from "./StatusBadge";
 
 const rows = [
   {
@@ -6,21 +6,21 @@ const rows = [
     title: "Hepatic Infraction",
     doctor: "",
     createdAt: "22/02/2021",
-    status: "pending",
+    status: StatusEnum.Pending,
   },
   {
     id: 2,
     title: "Pancreatis Acute",
     doctor: "Dr. John Doe",
     createdAt: "22/02/2021",
-    status: "in_progress",
+    status: StatusEnum.InProgress,
   },
   {
     id: 3,
     title: "Bone marrow failure",
     doctor: "Dr. John Doe",
     createdAt: "22/02/2021",
-    status: "done",
+    status: StatusEnum.Done,
   },
 ];
 

@@ -1,16 +1,16 @@
 import { FC } from "react";
 import { ArrowIcon } from "../icons";
-import { StatusBadge } from "../submissions";
+import { StatusBadge, StatusEnum } from "../submissions";
 
-interface Props {
+interface HeaderProps {
   title: string;
   subtitle?: string;
-  status?: string;
+  status?: StatusEnum;
   date?: string;
   doctor?: string;
 }
 
-export const Header: FC<Props> = ({
+export const Header: FC<HeaderProps> = ({
   title,
   subtitle,
   status,
@@ -20,12 +20,13 @@ export const Header: FC<Props> = ({
   return (
     <>
       <div className="ml-2">
-        <ArrowIcon
-          className="mb-6"
+        <button
           onClick={() => {
             window.history.back();
           }}
-        />
+        >
+          <ArrowIcon className="mb-6" />
+        </button>
         <div className="mb-6 flex flex-col">
           <div className="mb-1 flex">
             <h1 className="mr-2 text-xl">{title}</h1>
