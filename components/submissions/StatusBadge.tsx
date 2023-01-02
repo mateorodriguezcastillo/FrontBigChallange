@@ -22,10 +22,10 @@ export const StatusBadge: FC<StatusBadgeProps> = ({ status }) => {
     <span
       className={tw(
         "mt-0.5 mr-2 rounded-xl px-3 py-0.5 text-sm ",
-        possibleStatus[status]?.color
+        possibleStatus[status].color
       )}
     >
-      {possibleStatus[status]?.text}
+      {possibleStatus[status].text}
     </span>
   );
 };

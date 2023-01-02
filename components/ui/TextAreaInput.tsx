@@ -1,5 +1,5 @@
 import { FC } from "react";
-var _ = require("lodash");
+import { upperFirst } from 'lodash/fp'
 
 interface TextAreaInputProps {
   inputName: string;
@@ -12,7 +12,7 @@ export const TextAreaInput: FC<TextAreaInputProps> = ({ inputName }) => {
         htmlFor={inputName}
         className="mb-2 block text-sm text-gray-800 dark:text-white"
       >
-        {_.upperFirst(inputName)}
+        {upperFirst(inputName)}
       </label>
       <textarea
         id={inputName}

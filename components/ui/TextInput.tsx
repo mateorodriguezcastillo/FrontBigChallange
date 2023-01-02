@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { tw } from "../../utils";
-var _ = require("lodash");
+import { upperFirst } from 'lodash/fp'
 
 interface TextInputProps {
   inputName: string;
@@ -14,7 +14,7 @@ export const TextInput: FC<TextInputProps> = ({ inputName, className }) => {
         htmlFor={inputName}
         className="mb-2 block text-sm text-gray-800 dark:text-white"
       >
-        {_.upperFirst(inputName)}
+        {upperFirst(inputName)}
       </label>
       <input
         type="text"
