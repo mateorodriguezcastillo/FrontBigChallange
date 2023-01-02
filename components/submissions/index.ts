@@ -1,2 +1,2 @@
-export * from './StatusBadge';
-export * from './SubmissionTextBox';
+export * from "./StatusBadge";
+export * from "./SubmissionTextBox";
