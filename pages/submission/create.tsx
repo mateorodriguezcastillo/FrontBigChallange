@@ -6,15 +6,15 @@ import { Button } from 'flowbite-react';
 const CreateSubmissionPage = () => {
   return (
     <HomeLayout title={'Create submission'} pageDescription={'Provide the information requested below'}>
-      <div className="overflow-x-auto relative mt-6 mr-10 ml-10">
+      <div className='overflow-x-auto relative mt-6 mr-10 ml-10'>
         <Header title={'New Submission'} />
-        <hr className="mb-6" />
+        <hr className='mb-6' />
         <div className='m-2'>
           <TextInput inputName='title' />
           <TextAreaInput inputName='symptoms' />
-          <Button className="mt-8 px-5 py-2 font-normal"
-            type="submit"
-            size="large"
+          <Button className='mt-8 px-5 py-2 font-normal'
+            type='submit'
+            size='large'
             onClick={() => { }}
           >
             Send submission

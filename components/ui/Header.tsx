@@ -1,6 +1,6 @@
-import { FC } from "react"
-import { ArrowIcon } from "../icons"
-import { StatusBadge } from "../submissions"
+import { FC } from 'react'
+import { ArrowIcon } from '../icons'
+import { StatusBadge } from '../submissions'
 
 interface Props {
     title: string,
@@ -14,13 +14,13 @@ interface Props {
 export const Header: FC<Props> = ({ title, subtitle, status, date, doctor }) => {
     return (
         <>
-            <div className="ml-2">
+            <div className='ml-2'>
                 <ArrowIcon
                     className='mb-6'
                     onClick={() => { window.history.back() }}
                 />
                 <div className='flex flex-col mb-6'>
-                    <div className="flex mb-1">
+                    <div className='flex mb-1'>
                         <h1 className='text-xl mr-2'>
                             {title}
                         </h1>

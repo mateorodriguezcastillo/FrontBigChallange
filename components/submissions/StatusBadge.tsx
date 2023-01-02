@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { tw } from "../../utils";
+import { FC } from 'react';
+import { tw } from '../../utils';
 
 interface Props {
     status: string
@@ -13,7 +13,7 @@ const possibleStatus: {[key: string]: {color: string, text: string}} = {
 
 export const StatusBadge:FC<Props> = ({ status }) => {
   return (
-    <span className={tw("text-sm mt-0.5 mr-2 px-3 py-0.5 rounded-xl ", possibleStatus[status]?.color)}>
+    <span className={tw('text-sm mt-0.5 mr-2 px-3 py-0.5 rounded-xl ', possibleStatus[status]?.color)}>
         {possibleStatus[status]?.text}
     </span>
   )

@@ -5,14 +5,14 @@ import { Header } from '../../components/ui';
 const SubmissionPage = () => {
     return (
         <HomeLayout title={'View submission'} pageDescription={'Information of the requested submission'}>
-            <div className="overflow-x-auto relative mt-6 mr-10 ml-10">
+            <div className='overflow-x-auto relative mt-6 mr-10 ml-10'>
                 <Header
                     title='Hepatic Infraction'
                     status='pending'
                     date='3/4/16'
                     doctor='Dr. John Doe, MD'
                 />
-                <hr className="mb-6" />
+                <hr className='mb-6' />
                 <div className='flex flex-col mt-6 ml-2'>
                     <div className='columns-2 gap-1'>
                         <SubmissionTextBox

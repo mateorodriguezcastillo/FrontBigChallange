@@ -1,5 +1,5 @@
-import { FC } from "react"
-import { tw } from "../../utils";
+import { FC } from 'react'
+import { tw } from '../../utils';
 var _ = require('lodash');
 
 interface Props {
@@ -9,15 +9,15 @@ interface Props {
 
 export const TextInput:FC<Props>= ({ inputName, className }) => {
     return (
-        <div className={"flex flex-col flex-grow"}>
+        <div className={'flex flex-col flex-grow'}>
             <label
                 htmlFor={inputName}
-                className="block mb-2 text-sm text-gray-800 dark:text-white"
+                className='block mb-2 text-sm text-gray-800 dark:text-white'
             >
                 {_.upperFirst(inputName)}
             </label>
             <input
-                type="text"
+                type='text'
                 id={inputName}
                 className={tw(`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
                             focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 
