@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext } from "react";
 import Head from "next/head";
 import { Sidebar } from "../ui/Sidebar";
 import { tw } from "../../utils";

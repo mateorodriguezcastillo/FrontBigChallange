@@ -1,8 +1,7 @@
 import { NoPrescriptionIcon } from "../../components/icons";
 import { HomeLayout } from "../../components/layout/HomeLayout";
-import { SubmissionTextBox } from "../../components/submissions";
+import { SubmissionTextBox, StatusEnum } from "../../components/submissions";
 import { Header } from "../../components/ui";
-import { StatusEnum } from "../../components/submissions";
 
 const SubmissionPage = () => {
   return (
