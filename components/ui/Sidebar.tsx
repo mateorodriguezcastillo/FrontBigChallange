@@ -1,5 +1,16 @@
-import { HomeIcon, NewSubmissionIcon } from "../icons";
+import { useContext } from "react";
+import { UIContext } from "../../context/ui";
+import {
+  HomeIcon,
+  NewSubmissionIcon,
+  DarkModeIcon,
+  LightModeIcon,
+} from "../icons";
+
 export const Sidebar = () => {
+  const { darkMode, activateDarkMode, deactivateDarkMode } =
+    useContext(UIContext);
+
   const tabs = [
     {
       name: "Home",
@@ -16,7 +27,7 @@ export const Sidebar = () => {
   return (
     <>
       <aside className="h-screen w-72" aria-label="Sidebar">
-        <div className="h-full overflow-y-auto bg-gray-900 py-4 px-3">
+        <div className="h-full overflow-y-auto bg-gray-900 py-4 px-3 dark:border-r dark:border-slate-700 dark:bg-black ">
           <div className="mt-1 flex h-full flex-col justify-between">
             <ul className="space-y-2">
               {tabs.map((tab, index) => (
@@ -51,6 +62,14 @@ export const Sidebar = () => {
                   </p>
                 </div>
               </div>
+              <button
+                id="theme-toggle"
+                type="button"
+                className="text-whte rounded-lg p-2.5 text-sm hover:bg-gray-700 focus:outline-none"
+                onClick={darkMode ? deactivateDarkMode : activateDarkMode}
+              >
+                {darkMode ? <DarkModeIcon /> : <LightModeIcon />}
+              </button>
             </div>
           </div>
         </div>

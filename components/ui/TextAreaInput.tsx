@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { upperFirst } from 'lodash/fp'
+import { upperFirst } from "lodash/fp";
 
 interface TextAreaInputProps {
   inputName: string;

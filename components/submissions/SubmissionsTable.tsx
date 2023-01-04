@@ -30,20 +30,21 @@ export const SubmissionsTable = () => {
       <div className="mt-6 flex justify-end">
         <select
           id="statusSelectBox"
-          className={`mb-2 mr-4 block w-1/5 rounded-lg border border-gray-300 
-                                bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 
-                                dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
+          className={`mb-2 mr-4 block w-1/5 rounded-lg border border-gray-300 bg-gray-50 
+                    p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 
+                    dark:border-slate-700 dark:bg-black dark:text-white 
+                    dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
         >
-          <option selected>All submissions</option>
+          <option defaultValue="all">All submissions</option>
           <option value="pending">Pending</option>
           <option value="in_progress">In Progress</option>
           <option value="done">Done</option>
         </select>
       </div>
 
-      <div className="relative mr-4 ml-4 overflow-x-auto rounded-lg border border-gray-200">
+      <div className="relative mr-4 ml-4 overflow-x-auto rounded-lg border border-gray-200 dark:border-slate-700">
         <table className="w-full table-fixed text-left text-sm text-gray-900 dark:text-gray-400">
-          <thead className="border-b-1 border-gray-200 bg-gray-50 text-xs font-light uppercase text-gray-500 dark:text-gray-400">
+          <thead className="border-b-1 border-gray-200 bg-gray-50 text-xs font-light uppercase text-gray-500 dark:border-b-2 dark:border-gray-400 dark:bg-black">
             <tr>
               <th scope="col" className="py-3 px-6 font-normal">
                 Submission Title
@@ -62,17 +63,20 @@ export const SubmissionsTable = () => {
           </thead>
           <tbody>
             {rows.map((row, index) => (
-              <tr key={row.id} className="odd:bg-white even:bg-slate-50">
-                <td className="py-4 px-6">{row.title}</td>
-                <td className="py-4 px-6">{row.doctor}</td>
+              <tr
+                key={index}
+                className="odd:bg-white even:bg-slate-50 dark:border-b dark:border-gray-700 dark:odd:bg-black dark:even:bg-black"
+              >
+                <td className="py-4 px-6 dark:text-gray-300">{row.title}</td>
+                <td className="py-4 px-6 dark:text-gray-300">{row.doctor}</td>
                 <td className="py-4 px-6 font-light text-gray-500">
                   {row.createdAt}
                 </td>
                 <td className="py-4 px-6">
                   <StatusBadge status={row.status} />
                 </td>
-                <td className="py-4 px-6">
-                  <button className="text-blue-600 ">View more</button>
+                <td className="py-4 px-6 text-center">
+                  <button className="text-blue-600">View more</button>
                 </td>
               </tr>
             ))}
