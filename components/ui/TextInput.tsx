@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { tw } from "../../utils";
-import { upperFirst } from 'lodash/fp'
+import { upperFirst } from "lodash/fp";
 
 interface TextInputProps {
   inputName: string;

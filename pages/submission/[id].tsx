@@ -1,8 +1,7 @@
 import { NoPrescriptionIcon } from "../../components/icons";
 import { HomeLayout } from "../../components/layout/HomeLayout";
-import { SubmissionTextBox } from "../../components/submissions";
+import { SubmissionTextBox, StatusEnum } from "../../components/submissions";
 import { Header } from "../../components/ui";
-import { StatusEnum } from "../../components/submissions";
 
 const SubmissionPage = () => {
   return (
@@ -35,10 +34,12 @@ const SubmissionPage = () => {
             subtitle="Voluptate veniam consequat adipisicing amet et cillum dolore veniam officia esse duis."
           />
           <div className="mb-8 flex flex-col">
-            <h3 className="mb-1 text-sm text-gray-500">Prescriptions</h3>
-            <div className="flex w-full rounded-lg bg-gray-100 p-2">
-              <NoPrescriptionIcon className="mr-3 ml-4" />
-              <span className="mt-auto mb-auto text-sm text-gray-800">
+            <h3 className="mb-1 text-sm text-gray-500 dark:text-gray-400">
+              Prescriptions
+            </h3>
+            <div className="flex w-full rounded-lg bg-gray-100 p-2 dark:bg-gray-700">
+              <NoPrescriptionIcon className="mr-3 ml-4 text-black dark:text-white" />
+              <span className="mt-auto mb-auto text-sm text-gray-800 dark:text-white">
                 No prescriptions have been added yet.
               </span>
             </div>
