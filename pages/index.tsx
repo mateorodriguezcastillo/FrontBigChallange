@@ -1,5 +1,5 @@
 import { HomeLayout } from "../components/layout";
-import { SubmissionsTable } from "../components/ui";
+import { SubmissionsTable } from "../components/submissions";
 
 export default function HomePage() {
   return (
