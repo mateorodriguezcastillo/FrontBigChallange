@@ -180,3 +180,4 @@ export const EyeSlashIcon: FC<IconProps> = ({ className }) => {
     </svg>
   );
 };
+
