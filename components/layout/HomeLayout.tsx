@@ -4,13 +4,17 @@ import { Sidebar } from "../ui/Sidebar";
 import { tw } from "../../utils";
 import { UIContext } from "../../context/ui";
 
-interface Props {
+interface HomeLayoutProps {
   title: string;
   pageDescription: string;
   children: React.ReactNode;
 }
 
-export const HomeLayout: FC<Props> = ({ children, title, pageDescription }) => {
+export const HomeLayout: FC<HomeLayoutProps> = ({
+  children,
+  title,
+  pageDescription,
+}) => {
   const { darkMode } = useContext(UIContext);
 
   return (

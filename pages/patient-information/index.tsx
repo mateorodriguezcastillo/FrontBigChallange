@@ -17,10 +17,14 @@ const PatientInformationPage = () => {
         />
         <hr className="mb-6" />
         <div className="m-2">
-          <TextInput inputName="phone" />
+          <TextInput inputName="phone" type="text" />
           <div className="flex w-1/2">
-            <TextInput className="w-11/12" inputName="weight" />
-            <TextInput className="w-full" inputName="height" />
+            <TextInput
+              inputClassName="w-11/12"
+              inputName="weight"
+              type="text"
+            />
+            <TextInput inputClassName="w-full" inputName="height" type="text" />
           </div>
           <TextAreaInput inputName="other info" />
           <Button
