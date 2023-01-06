@@ -64,7 +64,7 @@ export const SubmissionsTable = () => {
           <tbody>
             {rows.map((row, index) => (
               <tr
-                key={index}
+                key={row.id}
                 className="odd:bg-white even:bg-slate-50 dark:border-b dark:border-gray-700 dark:odd:bg-black dark:even:bg-black"
               >
                 <td className="py-4 px-6 dark:text-gray-300">{row.title}</td>
