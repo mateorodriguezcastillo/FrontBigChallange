@@ -14,7 +14,6 @@ const LoginPage = () => {
         <TextInput
           inputClassName="w-full bg-white border border-gray-300 shadow-xl"
           labelClassName="text-white"
-          type="text"
           inputName={"email"}
         />
         <TextInput

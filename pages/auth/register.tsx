@@ -14,23 +14,21 @@ const RegisterPage = () => {
         <TextInput
           inputClassName="w-full bg-white border border-gray-300 shadow-xl"
           labelClassName="text-white dark:text-white"
-          type="text"
           inputName={"name"}
         />
         <TextInput
           inputClassName="w-full bg-white border border-gray-300 shadow-xl"
           labelClassName="text-white dark:text-white"
-          type="text"
           inputName={"email"}
         />
         <TextInput
-          inputClassName="w-11/12 bg-white border border-gray-300 shadow-xl"
+          inputClassName="w-full bg-white border border-gray-300 shadow-xl"
           labelClassName="text-white dark:text-white"
           type="password"
           inputName={"password"}
         />
         <TextInput
-          inputClassName="w-11/12 bg-white border border-gray-300 shadow-xl"
+          inputClassName="w-full bg-white border border-gray-300 shadow-xl"
           labelClassName="text-white dark:text-white"
           type="password"
           inputName={"confirm password"}

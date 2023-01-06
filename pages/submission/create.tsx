@@ -13,7 +13,7 @@ const CreateSubmissionPage = () => {
         <Header title={"New Submission"} />
         <hr className="mb-6" />
         <div className="m-2">
-          <TextInput inputName="title" type="text" />
+          <TextInput inputName="title" />
           <TextAreaInput inputName="symptoms" />
           <Button
             className="mt-8 px-5 py-2 font-normal"

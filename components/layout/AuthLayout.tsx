@@ -19,7 +19,7 @@ export const AuthLayout: FC<HomeLayoutProps> = ({
     useContext(UIContext);
 
   return (
-    <div className={tw("h-screen ", darkMode ? "dark" : "")}>
+    <div className={tw("h-screen", { dark: darkMode })}>
       <Head>
         <title>{title}</title>
         <meta name="description" content={pageDescription} />
@@ -30,7 +30,7 @@ export const AuthLayout: FC<HomeLayoutProps> = ({
           className="flex h-full w-full justify-end bg-cover bg-center"
           style={{
             backgroundImage:
-              "url(https://healthfox.fi/en/wp-content/uploads/2022/12/NHS_doctor-scaled.jpg)",
+              "url(/images/auth-background.jpeg)",
           }}
         >
           <div className="h-full w-4/12 bg-gray-300 bg-opacity-60 dark:bg-black dark:bg-opacity-70">

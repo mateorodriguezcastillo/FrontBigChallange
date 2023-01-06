@@ -19,12 +19,8 @@ const PatientInformationPage = () => {
         <div className="m-2">
           <TextInput inputName="phone" type="text" />
           <div className="flex w-1/2">
-            <TextInput
-              inputClassName="w-11/12"
-              inputName="weight"
-              type="text"
-            />
-            <TextInput inputClassName="w-full" inputName="height" type="text" />
+            <TextInput inputClassName="w-11/12" inputName="weight" />
+            <TextInput inputClassName="w-full" inputName="height" />
           </div>
           <TextAreaInput inputName="other info" />
           <Button
