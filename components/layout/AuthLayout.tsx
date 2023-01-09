@@ -29,12 +29,11 @@ export const AuthLayout: FC<HomeLayoutProps> = ({
         <div
           className="flex h-full w-full justify-end bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url(/images/auth-background.jpeg)",
+            backgroundImage: "url(/images/auth-background.jpeg)",
           }}
         >
           <div className="h-full w-4/12 bg-gray-300 bg-opacity-60 dark:bg-black dark:bg-opacity-70">
-            <div className="m-auto mt-20 flex h-3/5 w-9/12 flex-col justify-between">
+            <div className="m-auto mt-10 flex h-3/5 w-9/12 flex-col justify-between">
               {children}
               <button
                 id="theme-toggle"

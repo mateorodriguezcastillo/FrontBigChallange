@@ -7,6 +7,7 @@ interface RadioButtonProps {
   inputGroup: string;
   inputClassName?: string;
   labelClassName?: string;
+  register: any;
 }
 
 export const RadioButton: FC<RadioButtonProps> = ({
@@ -14,6 +15,7 @@ export const RadioButton: FC<RadioButtonProps> = ({
   inputGroup,
   inputClassName,
   labelClassName,
+  register,
 }) => {
   return (
     <>
@@ -24,6 +26,7 @@ export const RadioButton: FC<RadioButtonProps> = ({
         defaultValue={inputName}
         className={tw("peer hidden shadow-xl", inputClassName)}
         required
+        {...register(inputGroup)}
       />
       <label
         htmlFor={inputName}
