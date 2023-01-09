@@ -23,7 +23,7 @@ export interface Doctor {
 export enum Status {
   InProgress = "in_progress",
   Pending = "pending",
-  Ready = "ready",
+  Done = "done",
 }
 
 export interface Pagination {

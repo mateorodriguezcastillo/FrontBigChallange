@@ -55,7 +55,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
           </option>
           <option value="pending">Pending</option>
           <option value="in_progress">In Progress</option>
-          <option value="ready">Done</option>
+          <option value="done">Done</option>
         </select>
       </div>
 
