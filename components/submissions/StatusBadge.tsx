@@ -1,14 +1,9 @@
 import { FC } from "react";
+import { Status } from "../../interfaces";
 import { tw } from "../../utils";
 
-export enum StatusEnum {
-  Pending = "pending",
-  InProgress = "in_progress",
-  Done = "done",
-}
-
 interface StatusBadgeProps {
-  status: StatusEnum;
+  status: Status;
 }
 
 const possibleStatus = {
@@ -22,7 +17,7 @@ const possibleStatus = {
       "bg-green-100 text-green-700 dark:bg-gray-900 dark:text-green-400 dark:border dark:border-green-400",
     text: "In Progress",
   },
-  done: {
+  ready: {
     color:
       "bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:border dark:border-gray-200",
     text: "Done",

@@ -29,8 +29,7 @@ export const AuthLayout: FC<HomeLayoutProps> = ({
         <div
           className="flex h-full w-full justify-end bg-cover bg-center"
           style={{
-            backgroundImage:
-              "url(/images/auth-background.jpeg)",
+            backgroundImage: "url(/images/auth-background.jpeg)",
           }}
         >
           <div className="h-full w-4/12 bg-gray-300 bg-opacity-60 dark:bg-black dark:bg-opacity-70">

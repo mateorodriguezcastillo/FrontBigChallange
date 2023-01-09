@@ -3,7 +3,6 @@ import { tw } from "../../utils";
 import { upperFirst } from "lodash/fp";
 import { EyeIcon, EyeSlashIcon } from "../icons/Icons";
 
-
 interface TextInputProps {
   inputName: string;
   inputClassName?: string;
