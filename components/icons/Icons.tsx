@@ -9,6 +9,13 @@ interface ChevronIconProps extends IconProps {
   direction: "left" | "right" | "up" | "down";
 }
 
+const rotation = {
+  down: "-rotate-90",
+  left: "rotate-0",
+  up: "rotate-90",
+  right: "rotate-180",
+};
+
 export const ArrowIcon: FC<IconProps> = ({ className }) => {
   return (
     <svg
@@ -186,13 +193,6 @@ export const EyeSlashIcon: FC<IconProps> = ({ className }) => {
 };
 
 export const ChevronIcon: FC<ChevronIconProps> = ({ className, direction }) => {
-  const rotation = {
-    down: "-rotate-90",
-    left: "rotate-0",
-    up: "rotate-90",
-    right: "rotate-180",
-  };
-
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Pagination, Submission } from "../../interfaces";
 import { StatusBadge } from "./StatusBadge";
 import { ChevronIcon } from "../icons/Icons";
-import moment from "moment";
+import { format } from "date-fns";
 
 interface SubmissionsTableProps {
   submissions: Submission[];
@@ -13,14 +13,7 @@ interface SubmissionsTableProps {
 }
 
 const getDateFormat = (date: Date) => {
-  let dateMoment = moment(date);
-  return (
-    dateMoment.format("DD") +
-    "/" +
-    dateMoment.format("MM") +
-    "/" +
-    dateMoment.format("YY")
-  );
+  return format(new Date(date), "dd/MM/yy");
 };
 
 export const SubmissionsTable: FC<SubmissionsTableProps> = ({
@@ -123,7 +116,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
               onClick={() => {
                 changePage(pagination.currentPage - 1);
               }}
-              disabled={pagination.links?.previous ? false : true}
+              disabled={!pagination.links?.previous}
             >
               <ChevronIcon direction={"left"} />
             </button>
@@ -133,7 +126,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
               onClick={() => {
                 changePage(pagination.currentPage + 1);
               }}
-              disabled={pagination.links?.next ? false : true}
+              disabled={!pagination.links?.next}
             >
               <ChevronIcon direction={"right"} />
             </button>

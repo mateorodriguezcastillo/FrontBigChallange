@@ -2,11 +2,21 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { HomeLayout } from "../components/layout";
 import { SubmissionsTable } from "../components/submissions";
-import { Pagination } from "../interfaces";
+import { Pagination, Submission } from "../interfaces";
 
 export default function HomePage() {
-  const [submissions, setSubmissions] = useState([]);
-  const [pagination, setPagination] = useState({} as Pagination);
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [pagination, setPagination] = useState<Pagination>({
+    count: 0,
+    total: 0,
+    perPage: 0,
+    currentPage: 0,
+    totalPages: 0,
+    links: {
+      next: "",
+      previous: "",
+    },
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState("");
 
