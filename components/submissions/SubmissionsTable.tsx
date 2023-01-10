@@ -39,8 +39,10 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
                     dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
           onChange={(e) => {
             changePage(1);
-            if (e.target.value !== "all") changeStatus(e.target.value);
-            else changeStatus("");
+            if (e.target.value !== "all") 
+              changeStatus(e.target.value);
+            else 
+              changeStatus("");
           }}
         >
           <option defaultValue="all" value="all">
@@ -72,7 +74,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {submissions.map((submission, index) => (
+            {submissions.map((submission) => (
               <tr
                 key={submission.id}
                 className="odd:bg-white even:bg-slate-50 dark:border-b dark:border-gray-700 dark:odd:bg-black dark:even:bg-black"

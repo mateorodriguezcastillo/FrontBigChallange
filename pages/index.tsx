@@ -1,8 +1,22 @@
 import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
 import axios from "axios";
 import { HomeLayout } from "../components/layout";
 import { SubmissionsTable } from "../components/submissions";
 import { Pagination, Submission } from "../interfaces";
+
+const getData = async (currentPage: number, status: string) => {
+  const res = await axios.get(
+    "http://localhost/api/submission?page=" + currentPage + "&status=" + status,
+    {
+      headers: {
+        // TODO: 'Get token from local storage',
+        Authorization: "Bearer 7|KehvInPBShePwu8rhxtWBrQVFfYLepXsZMf5TAot",
+      },
+    }
+  );
+  return res.data;
+};
 
 export default function HomePage() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
@@ -20,32 +34,16 @@ export default function HomePage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState("");
 
-  useEffect(() => {
-    axios
-      .get(
-        "http://localhost/api/submission?page=" +
-          currentPage +
-          "&status=" +
-          status,
-        {
-          headers: {
-            // TODO: 'Get token from local storage',
-            Authorization: "Bearer 1|PN3p8Fc4Khz7IM9bYxHb1FxBd0DFgvvjG2A5rUM3",
-          },
-        }
-      )
-      .then((res) => {
-        setSubmissions(res.data.data);
-        setPagination(res.data.pagination);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [currentPage, status]);
+  const { data } = useQuery(["submissions", currentPage, status], () =>
+    getData(currentPage, status)
+  );
 
-  console.log(currentPage + status);
-  console.log(currentPage);
-  console.log(pagination);
+  useEffect(() => {
+    if (data) {
+      setSubmissions(data.data);
+      setPagination(data.pagination);
+    }
+  }, [currentPage, status, data]);
 
   return (
     <>
