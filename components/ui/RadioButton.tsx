@@ -1,13 +1,14 @@
 import { FC } from "react";
 import { upperFirst } from "lodash/fp";
 import { tw } from "../../utils";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface RadioButtonProps {
   inputName: string;
   inputGroup: string;
   inputClassName?: string;
   labelClassName?: string;
-  register: any;
+  register: UseFormRegister<FieldValues>;
 }
 
 export const RadioButton: FC<RadioButtonProps> = ({

@@ -60,6 +60,7 @@ const RegisterPage = () => {
             inputClassName="w-full bg-white border border-gray-300 shadow-xl"
             labelClassName="text-white dark:text-white"
             inputName={"name"}
+            labelName={"Name"}
             register={register}
             errors={errors}
           />
@@ -67,6 +68,7 @@ const RegisterPage = () => {
             inputClassName="w-full bg-white border border-gray-300 shadow-xl"
             labelClassName="text-white dark:text-white"
             inputName={"email"}
+            labelName={"Email"}
             register={register}
             errors={errors}
           />
@@ -75,6 +77,7 @@ const RegisterPage = () => {
             labelClassName="text-white dark:text-white"
             type="password"
             inputName={"password"}
+            labelName={"Password"}
             register={register}
             errors={errors}
           />
@@ -83,6 +86,7 @@ const RegisterPage = () => {
             labelClassName="text-white dark:text-white"
             type="password"
             inputName={"password_confirmation"}
+            labelName={"Confirm Password"}
             register={register}
             errors={errors}
           />
@@ -107,7 +111,7 @@ const RegisterPage = () => {
               </li>
             </ul>
             <span className="mt-1 text-xs text-red-500">
-              {errors["role"] && errors["role"].message}
+              {errors["role"] && errors["role"]["message"]}
             </span>
           </div>
 

@@ -1,19 +1,21 @@
 import { FC, useState } from "react";
+import { FieldError, FieldErrorsImpl, FieldValues, Merge, UseFormRegister } from "react-hook-form";
 import { tw } from "../../utils";
-import { upperFirst, words } from "lodash/fp";
 import { EyeIcon, EyeSlashIcon } from "../icons/Icons";
 
 interface TextInputProps {
   inputName: string;
+  labelName: string;
   inputClassName?: string;
   labelClassName?: string;
   type?: string;
-  register?: any;
-  errors?: any;
+  register: UseFormRegister<FieldValues>;
+  errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
 export const TextInput: FC<TextInputProps> = ({
   inputName,
+  labelName,
   inputClassName,
   labelClassName,
   type = "text",
@@ -39,7 +41,7 @@ export const TextInput: FC<TextInputProps> = ({
           labelClassName
         )}
       >
-        {upperFirst(words(inputName).join(" "))}
+        {labelName}
       </label>
       <div className="relative">
         <input
@@ -67,7 +69,7 @@ export const TextInput: FC<TextInputProps> = ({
         )}
       </div>
       <span className="mt-1 text-xs text-red-500">
-        {errors[inputName] && errors[inputName].message}
+        {errors && errors[inputName as keyof typeof errors] && errors[inputName as keyof typeof errors]['message']}
       </span>
     </div>
   );
