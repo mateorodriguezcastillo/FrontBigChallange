@@ -1,5 +1,10 @@
 import { FC, useState } from "react";
-import { FieldError, FieldErrorsImpl, FieldValues, Merge, UseFormRegister } from "react-hook-form";
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  UseFormRegister,
+} from "react-hook-form";
 import { tw } from "../../utils";
 import { EyeIcon, EyeSlashIcon } from "../icons/Icons";
 
@@ -9,7 +14,13 @@ interface TextInputProps {
   inputClassName?: string;
   labelClassName?: string;
   type?: string;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<{
+    password: string;
+    email: string;
+    name: string;
+    password_confirmation: string;
+    role: string;
+  }>;
   errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
@@ -58,7 +69,7 @@ export const TextInput: FC<TextInputProps> = ({
         />
         {type === "password" && (
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-sm leading-5">
-            <button onClick={changeType}>
+            <button type="button" onClick={changeType}>
               {currentType === "password" ? (
                 <EyeSlashIcon className="text-black dark:text-white" />
               ) : (
@@ -69,7 +80,9 @@ export const TextInput: FC<TextInputProps> = ({
         )}
       </div>
       <span className="mt-1 text-xs text-red-500">
-        {errors && errors[inputName as keyof typeof errors] && errors[inputName as keyof typeof errors]['message']}
+        {errors &&
+          errors[inputName as keyof typeof errors] &&
+          errors[inputName as keyof typeof errors]["message"]}
       </span>
     </div>
   );

@@ -1,43 +1,50 @@
 import axios from "axios";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
 import { Button } from "flowbite-react";
 import { UserIcon } from "../../components/icons";
 import { AuthLayout } from "../../components/layout";
 import { RadioButton, TextInput } from "../../components/ui";
 
-const RegisterPage = () => {
-  let schema = yup.object().shape({
-    name: yup.string().required("Name is required"),
-    email: yup
+export type FormSchemaType = z.infer<typeof schema>;
+
+const rMsg = "This field is required";
+
+const schema = z
+  .object({
+    name: z.string().trim().min(1, rMsg),
+    email: z.string().email("Email must be a valid email").min(1, rMsg),
+    password: z.string().min(1, rMsg),
+    password_confirmation: z.string().min(1, rMsg),
+    role: z
       .string()
-      .email("Email must be a valid email")
-      .required("Email is required"),
-    password: yup.string().required("Password is required"),
-    password_confirmation: yup
-      .string()
-      .required("Confirm password is required")
-      .equals([yup.ref("password")], "Passwords must match"),
-    role: yup
-      .string()
-      .nullable()
-      .required("Type is required")
-      .oneOf(["doctor", "patient"], "Type must be doctor or patient"),
+      .min(1, rMsg)
+      .refine((value) => value === "doctor" || value === "patient"),
+  })
+  .superRefine(({ password_confirmation, password }, ctx) => {
+    if (password_confirmation !== password) {
+      ctx.addIssue({
+        code: "custom",
+        message: "The passwords did not match",
+        path: ["password_confirmation"],
+      });
+    }
   });
 
+const RegisterPage = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
+  } = useForm<FormSchemaType>({
+    resolver: zodResolver(schema),
   });
 
   const router = useRouter();
 
-  const onSubmit = (values: any) => {
+  const onSubmit: SubmitHandler<FormSchemaType> = (values) => {
     axios
       .post("http://localhost/api/register", values)
       .then((res) => {
