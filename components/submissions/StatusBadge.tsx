@@ -1,14 +1,9 @@
 import { FC } from "react";
+import { Status } from "../../interfaces";
 import { tw } from "../../utils";
 
-export enum StatusEnum {
-  Pending = "pending",
-  InProgress = "in_progress",
-  Done = "done",
-}
-
 interface StatusBadgeProps {
-  status: StatusEnum;
+  status: Status;
 }
 
 const possibleStatus = {

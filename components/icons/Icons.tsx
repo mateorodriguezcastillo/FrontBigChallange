@@ -5,6 +5,17 @@ interface IconProps {
   className?: string;
 }
 
+interface ChevronIconProps extends IconProps {
+  direction: "left" | "right" | "up" | "down";
+}
+
+const rotation = {
+  down: "-rotate-90",
+  left: "rotate-0",
+  up: "rotate-90",
+  right: "rotate-180",
+};
+
 export const ArrowIcon: FC<IconProps> = ({ className }) => {
   return (
     <svg
@@ -180,3 +191,23 @@ export const EyeSlashIcon: FC<IconProps> = ({ className }) => {
     </svg>
   );
 };
+
+export const ChevronIcon: FC<ChevronIconProps> = ({ className, direction }) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      strokeWidth={1.5}
+      stroke="currentColor"
+      className={tw("h-4 w-4", className, rotation[direction])}
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M15.75 19.5L8.25 12l7.5-7.5"
+      />
+    </svg>
+  );
+};
+
