@@ -1,5 +1,8 @@
 import { useContext } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 import { UIContext } from "../../context/ui";
+import { useAuthStore } from "../../src/store/auth";
 import {
   HomeIcon,
   NewSubmissionIcon,
@@ -7,22 +10,40 @@ import {
   LightModeIcon,
 } from "../icons";
 
+const tabs = [
+  {
+    name: "Home",
+    icon: <HomeIcon />,
+    href: "/",
+  },
+  {
+    name: "New Submission",
+    icon: <NewSubmissionIcon />,
+    href: "/submission/create",
+  },
+];
+
+const logout = (token: string) => {
+  axios.post("http://localhost/api/logout", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+};
+
 export const Sidebar = () => {
   const { darkMode, activateDarkMode, deactivateDarkMode } =
     useContext(UIContext);
 
-  const tabs = [
-    {
-      name: "Home",
-      icon: <HomeIcon />,
-      href: "/",
-    },
-    {
-      name: "New Submission",
-      icon: <NewSubmissionIcon />,
-      href: "/submission/create",
-    },
-  ];
+  const router = useRouter();
+  const { user, setUser, token, setToken } = useAuthStore();
+
+  const handleLogout = () => {
+    logout(token);
+    router.push("/auth/login");
+    setToken("");
+    setUser(null);
+  };
 
   return (
     <>
@@ -30,7 +51,7 @@ export const Sidebar = () => {
         <div className="h-full overflow-y-auto bg-gray-900 py-4 px-3 dark:border-r dark:border-slate-700 dark:bg-black ">
           <div className="mt-1 flex h-full flex-col justify-between">
             <ul className="space-y-2">
-              {tabs.map((tab, index) => (
+              {tabs.map((tab) => (
                 <li key={tab.href}>
                   <a
                     href={tab.href}
@@ -55,11 +76,13 @@ export const Sidebar = () => {
                 </div>
                 <div className="flex flex-col items-start justify-start">
                   <p className="cursor-pointer text-sm leading-5 text-white">
-                    Ronald Richards
+                    {user ? user.name : ""}
                   </p>
-                  <p className="cursor-pointer text-xs leading-3 text-gray-300">
-                    Sign Out
-                  </p>
+                  <button type="button" onClick={handleLogout}>
+                    <p className="cursor-pointer text-xs leading-3 text-gray-300">
+                      Sign Out
+                    </p>
+                  </button>
                 </div>
               </div>
               <button

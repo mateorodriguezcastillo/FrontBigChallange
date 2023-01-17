@@ -4,14 +4,14 @@ import axios from "axios";
 import { HomeLayout } from "../components/layout";
 import { SubmissionsTable } from "../components/submissions";
 import { Pagination, Submission } from "../interfaces";
+import { useAuthStore } from "../src/store/auth";
 
-const getData = async (currentPage: number, status: string) => {
+const getData = async (currentPage: number, status: string, token: string) => {
   const res = await axios.get(
     "http://localhost/api/submission?page=" + currentPage + "&status=" + status,
     {
       headers: {
-        // TODO: 'Get token from local storage',
-        Authorization: "Bearer 7|KehvInPBShePwu8rhxtWBrQVFfYLepXsZMf5TAot",
+        Authorization: "Bearer " + token,
       },
     }
   );
@@ -33,9 +33,10 @@ export default function HomePage() {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState("");
+  const { token } = useAuthStore();
 
-  const { data } = useQuery(["submissions", currentPage, status], () =>
-    getData(currentPage, status)
+  const { data } = useQuery(["submissions", currentPage, status, token], () =>
+    getData(currentPage, status, token)
   );
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function HomePage() {
       setSubmissions(data.data);
       setPagination(data.pagination);
     }
-  }, [currentPage, status, data]);
+  }, [data]);
 
   return (
     <>

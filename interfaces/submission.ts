@@ -5,12 +5,12 @@ export interface Submission {
   symptoms: string;
   status: Status;
   created_at: Date;
-  patient: Doctor;
-  doctor: Doctor;
+  patient: User;
+  doctor: User;
   prescription: null;
 }
 
-export interface Doctor {
+export interface User {
   id: number;
   role_id: number;
   name: string;
@@ -18,6 +18,13 @@ export interface Doctor {
   email_verified_at: Date;
   created_at: Date;
   updated_at: Date;
+}
+
+export interface UserLight {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
 }
 
 export enum Status {
