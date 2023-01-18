@@ -20,6 +20,9 @@ interface TextInputProps {
     name: string;
     password_confirmation: string;
     role: string;
+  }> | UseFormRegister<{
+    title: string;
+    symptoms: string;
   }>;
   errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
