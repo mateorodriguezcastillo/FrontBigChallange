@@ -37,7 +37,7 @@ const LoginPage = () => {
           id: res.data.data.id,
           name: res.data.data.name,
           email: res.data.data.email,
-          role: res.data.data.role,
+          role_name: res.data.data.role,
         });
         setToken(res.data.token);
         router.push("/");

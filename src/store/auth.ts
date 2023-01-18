@@ -1,15 +1,15 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { UserLight } from "../../interfaces/submission";
+import { User } from "../../interfaces/submission";
 
 interface State {
   token: string;
-  user: UserLight | null;
+  user: User | null;
 }
 
 interface Actions {
   setToken: (token: string) => void;
-  setUser: (user: UserLight | null) => void;
+  setUser: (user: User | null) => void;
 }
 
 export const useAuthStore = create(
@@ -21,7 +21,7 @@ export const useAuthStore = create(
         set((state) => ({
           token,
         })),
-      setUser: (user: UserLight | null) =>
+      setUser: (user: User | null) =>
         set((state) => ({
           user,
         })),

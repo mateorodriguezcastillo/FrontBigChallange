@@ -24,12 +24,16 @@ const tabs = [
   },
 ];
 
-const logout = (token: string) => {
-  axios.post("http://localhost/api/logout", {
-    headers: {
-      Authorization: "Bearer " + token,
-    },
-  });
+const logout = async (token: string) => {
+  await axios.post(
+    "http://localhost/api/logout",
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
 };
 
 export const Sidebar = () => {
@@ -40,10 +44,15 @@ export const Sidebar = () => {
   const { user, setUser, token, setToken } = useAuthStore();
 
   const handleLogout = () => {
-    logout(token);
-    router.push("/auth/login");
-    setToken("");
-    setUser(null);
+    logout(token)
+      .then(() => {
+        setToken("");
+        setUser(null);
+        router.push("/auth/login");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (

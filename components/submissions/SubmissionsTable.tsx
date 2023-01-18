@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useRouter } from "next/router";
-import { Pagination, Submission } from "../../interfaces";
+import { Pagination, Status, Submission } from "../../interfaces";
 import { StatusBadge } from "./StatusBadge";
 import { ChevronIcon } from "../icons/Icons";
 import { format } from "date-fns";
@@ -8,7 +8,8 @@ import { format } from "date-fns";
 interface SubmissionsTableProps {
   submissions: Submission[];
   pagination: Pagination | null;
-  changeStatus: (status: string) => void;
+  status: Status | "";
+  changeStatus: (status: Status | "") => void;
   changePage: (page: number) => void;
 }
 
@@ -19,6 +20,7 @@ const getDateFormat = (date: Date) => {
 export const SubmissionsTable: FC<SubmissionsTableProps> = ({
   submissions,
   pagination,
+  status,
   changeStatus,
   changePage,
 }) => {
@@ -39,13 +41,11 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
                     dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
           onChange={(e) => {
             changePage(1);
-            if (e.target.value !== "all") 
-              changeStatus(e.target.value);
-            else 
-              changeStatus("");
+            changeStatus(e.target.value as Status | "");
           }}
+          value={status}
         >
-          <option defaultValue="all" value="all">
+          <option value="">
             All submissions
           </option>
           <option value="pending">Pending</option>
