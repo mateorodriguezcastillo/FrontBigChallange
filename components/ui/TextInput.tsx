@@ -7,6 +7,7 @@ import {
 } from "react-hook-form";
 import { tw } from "../../utils";
 import { EyeIcon, EyeSlashIcon } from "../icons/Icons";
+import { FormSchemaType as PatientInfoForm } from '../../pages/patient-information'
 
 interface TextInputProps {
   inputName: string;
@@ -20,7 +21,7 @@ interface TextInputProps {
     name: string;
     password_confirmation: string;
     role: string;
-  }>;
+  }> | UseFormRegister<PatientInfoForm>;
   errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
