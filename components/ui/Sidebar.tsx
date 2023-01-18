@@ -8,6 +8,7 @@ import {
   NewSubmissionIcon,
   DarkModeIcon,
   LightModeIcon,
+  UserIcon,
 } from "../icons";
 
 const tabs = [
@@ -68,21 +69,21 @@ export const Sidebar = () => {
             <div className=" flex w-full items-center justify-between">
               <div className="flex items-center justify-center space-x-2">
                 <div>
-                  <img
-                    className="rounded-full"
-                    src="https://i.ibb.co/L1LQtBm/Ellipse-1.png"
-                    alt="avatar"
-                  />
+                  <UserIcon className="h-10 w-10" />
                 </div>
                 <div className="flex flex-col items-start justify-start">
-                  <p className="cursor-pointer text-sm leading-5 text-white">
-                    {user ? user.name : ""}
-                  </p>
-                  <button type="button" onClick={handleLogout}>
-                    <p className="cursor-pointer text-xs leading-3 text-gray-300">
-                      Sign Out
-                    </p>
-                  </button>
+                  {user && (
+                    <>
+                      <p className="cursor-pointer text-sm leading-5 text-white">
+                        {user.name}
+                      </p>
+                      <button type="button" onClick={handleLogout}>
+                        <p className="cursor-pointer text-xs leading-3 text-gray-300">
+                          Sign Out
+                        </p>
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               <button

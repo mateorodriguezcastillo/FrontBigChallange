@@ -5,10 +5,33 @@ import { HomeLayout } from "../components/layout";
 import { SubmissionsTable } from "../components/submissions";
 import { Pagination, Submission } from "../interfaces";
 import { useAuthStore } from "../src/store/auth";
+import { NoContent } from "../components/ui/NoContent";
 
 const getData = async (currentPage: number, status: string, token: string) => {
   const res = await axios.get(
     "http://localhost/api/submission?page=" + currentPage + "&status=" + status,
+    {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    }
+  );
+  return res.data;
+};
+
+const getOwnSubmissions = async (
+  userId: number | undefined,
+  currentPage: number,
+  status: string,
+  token: string
+) => {
+  const res = await axios.get(
+    "http://localhost/api/submission/user/" +
+      userId +
+      "?page=" +
+      currentPage +
+      "&status=" +
+      status,
     {
       headers: {
         Authorization: "Bearer " + token,
@@ -33,28 +56,47 @@ export default function HomePage() {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState("");
-  const { token } = useAuthStore();
+  const { user, token } = useAuthStore();
 
-  const { data } = useQuery(["submissions", currentPage, status, token], () =>
-    getData(currentPage, status, token)
+  const { data: allSubmissions, isLoading: loadingSubmissions } = useQuery(
+    ["submissions", currentPage, status, token],
+    () => getData(currentPage, status, token),
+    { enabled: user?.role === "doctor" }
+  );
+
+  const { data: ownSubmissions, isLoading: loadingOwnSubmissions } = useQuery(
+    ["ownSubmissions", user?.name, currentPage, status, token],
+    () => getOwnSubmissions(user?.id, currentPage, status, token),
+    { enabled: user?.role === "patient" }
   );
 
   useEffect(() => {
-    if (data) {
-      setSubmissions(data.data);
-      setPagination(data.pagination);
+    if (allSubmissions) {
+      setSubmissions(allSubmissions.data);
+      setPagination(allSubmissions.pagination);
     }
-  }, [data]);
+    if (ownSubmissions) {
+      setSubmissions(ownSubmissions.data);
+      setPagination(ownSubmissions.pagination);
+    }
+  }, [allSubmissions, ownSubmissions]);
 
   return (
     <>
       <HomeLayout title={"Home page"} pageDescription={"Prescription pool"}>
-        <SubmissionsTable
-          submissions={submissions}
-          pagination={pagination}
-          changeStatus={setStatus}
-          changePage={setCurrentPage}
-        />
+        {!loadingSubmissions &&
+        !loadingOwnSubmissions &&
+        submissions &&
+        submissions.length == 0 ? (
+          <NoContent contentType="submissions" />
+        ) : (
+          <SubmissionsTable
+            submissions={submissions}
+            pagination={pagination}
+            changeStatus={setStatus}
+            changePage={setCurrentPage}
+          />
+        )}
       </HomeLayout>
     </>
   );
