@@ -1,24 +1,14 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import axios from "axios";
 import { HomeLayout } from "../components/layout";
 import { SubmissionsTable } from "../components/submissions";
 import { Pagination, Submission } from "../interfaces";
-
-const getData = async (currentPage: number, status: string) => {
-  const res = await axios.get(
-    "http://localhost/api/submission?page=" + currentPage + "&status=" + status,
-    {
-      headers: {
-        // TODO: 'Get token from local storage',
-        Authorization: "Bearer 7|KehvInPBShePwu8rhxtWBrQVFfYLepXsZMf5TAot",
-      },
-    }
-  );
-  return res.data;
-};
+import SubmissionService from "../services/SubmissionService";
+import { useAuthStore } from "../src/store/auth";
 
 export default function HomePage() {
+  const submissionService = new SubmissionService();
+  const { token } = useAuthStore();
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
     count: 0,
@@ -35,7 +25,7 @@ export default function HomePage() {
   const [status, setStatus] = useState("");
 
   const { data } = useQuery(["submissions", currentPage, status], () =>
-    getData(currentPage, status)
+    submissionService.getSubmissions(currentPage, status, token)
   );
 
   useEffect(() => {

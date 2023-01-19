@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { Pagination, Submission } from "../../interfaces";
 import { StatusBadge } from "./StatusBadge";
 import { ChevronIcon } from "../icons/Icons";
-import { format } from "date-fns";
+import { getDateFormat } from "../../utils";
 
 interface SubmissionsTableProps {
   submissions: Submission[];
@@ -11,10 +11,6 @@ interface SubmissionsTableProps {
   changeStatus: (status: string) => void;
   changePage: (page: number) => void;
 }
-
-const getDateFormat = (date: Date) => {
-  return format(new Date(date), "dd/MM/yy");
-};
 
 export const SubmissionsTable: FC<SubmissionsTableProps> = ({
   submissions,
@@ -25,7 +21,13 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
   const router = useRouter();
 
   const handleViewSubmission = (id: number) => {
-    router.push("/submission/" + id);
+    router.push(
+      {
+        pathname: "/submission/" + id,
+        query: { id: id },
+      },
+      "/submission/" + id
+    );
   };
 
   return (
@@ -83,7 +85,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
                   {submission.title}
                 </td>
                 <td className="py-4 px-6 dark:text-gray-300">
-                  {submission.doctor.name}
+                  {submission.doctor ? submission.doctor.name : "-"}
                 </td>
                 <td className="py-4 px-6 font-light text-gray-500">
                   {getDateFormat(submission.created_at)}

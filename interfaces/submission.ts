@@ -5,12 +5,12 @@ export interface Submission {
   symptoms: string;
   status: Status;
   created_at: Date;
-  patient: Doctor;
-  doctor: Doctor;
-  prescription: null;
+  patient: User;
+  doctor?: User;
+  prescription?: null;
 }
 
-export interface Doctor {
+export interface User {
   id: number;
   role_id: number;
   name: string;
