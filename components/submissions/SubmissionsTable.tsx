@@ -85,7 +85,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
                   {submission.title}
                 </td>
                 <td className="py-4 px-6 dark:text-gray-300">
-                  {submission.doctor ? submission.doctor.name : "-"}
+                  {submission.doctor?.name ?? "-"}
                 </td>
                 <td className="py-4 px-6 font-light text-gray-500">
                   {getDateFormat(submission.created_at)}

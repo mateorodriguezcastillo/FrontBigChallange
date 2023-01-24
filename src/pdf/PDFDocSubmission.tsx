@@ -20,8 +20,6 @@ export const PDFDocSubmission: FC<PDFDocSubmissionProps> = ({
   prescription,
 }) => {
   return (
-    <>
-      {submission && prescription && (
         <Document>
           <Page style={styles.body} size={"A4"}>
             <View
@@ -119,8 +117,6 @@ export const PDFDocSubmission: FC<PDFDocSubmissionProps> = ({
             </View>
           </Page>
         </Document>
-      )}
-    </>
   );
 };
 

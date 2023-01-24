@@ -1,8 +1,8 @@
 import { withRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { Button } from "flowbite-react";
-import SubmissionService from "../../services/SubmissionService";
+import { acceptSubmission, getPrescription, getSubmission, uploadPrescription } from '../../services';
 import { Status, Submission } from "../../interfaces";
 import { getDateFormat } from "../../utils/date-format";
 import { LoadingIcon } from "../../components/icons";
@@ -13,53 +13,49 @@ import { Header } from "../../components/ui";
 import { useAuthStore } from "../../src/store/auth";
 
 const SubmissionPage = (props: any) => {
-  const submissionService = new SubmissionService();
   const { token } = useAuthStore();
   const { id } = props.router.query;
 
   const [submission, setSubmission] = useState<Submission | null>(null);
   const [loadingCircle, setLoadingCircle] = useState(false);
 
-  const { data, isLoading } = useQuery(
+  useQuery(
     ["submission", id],
-    () => submissionService.getSubmission(id, token),
+    () => getSubmission(id, token),
     {
       enabled: !!id,
+      onSuccess: (data) => {
+        setSubmission(data.data);
+      }
     }
   );
 
   const { data: prescription } = useQuery(
     ["prescription", id],
-    () => submissionService.getPrescription(id, token),
+    () => getPrescription(id, token),
     { enabled: !!id && submission?.prescription !== null }
   );
 
   const handleAcceptSubmission = async () => {
     setLoadingCircle(true);
-    const data = await submissionService.acceptSubmission(id, token);
+    const data = await acceptSubmission(id, token);
     setSubmission(data.data);
     setLoadingCircle(false);
   };
 
   const handleUploadPrescription = async (file: File) => {
     setLoadingCircle(true);
-    const data = await submissionService.uploadPrescription(id, file, token);
+    const data = await uploadPrescription(id, file, token);
     setSubmission(data.data);
     setLoadingCircle(false);
   };
-
-  useEffect(() => {
-    if (data) {
-      setSubmission(data.data);
-    }
-  }, [data]);
 
   return (
     <HomeLayout
       title={"View submission"}
       pageDescription={"Information of the requested submission"}
     >
-      {!isLoading && submission && (
+      {submission && (
         <div className="relative mt-6 mr-10 ml-10 overflow-x-auto">
           <div className="flex justify-between">
             <Header

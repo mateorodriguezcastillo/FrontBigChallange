@@ -3,11 +3,10 @@ import { useQuery } from "react-query";
 import { HomeLayout } from "../components/layout";
 import { SubmissionsTable } from "../components/submissions";
 import { Pagination, Submission } from "../interfaces";
-import SubmissionService from "../services/SubmissionService";
+import { getSubmissions } from "../services";
 import { useAuthStore } from "../src/store/auth";
 
 export default function HomePage() {
-  const submissionService = new SubmissionService();
   const { token } = useAuthStore();
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
@@ -25,7 +24,7 @@ export default function HomePage() {
   const [status, setStatus] = useState("");
 
   const { data } = useQuery(["submissions", currentPage, status], () =>
-    submissionService.getSubmissions(currentPage, status, token)
+    getSubmissions(currentPage, status, token)
   );
 
   useEffect(() => {
