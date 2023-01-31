@@ -20,103 +20,92 @@ export const PDFDocSubmission: FC<PDFDocSubmissionProps> = ({
   prescription,
 }) => {
   return (
-        <Document>
-          <Page style={styles.body} size={"A4"}>
+    <Document>
+      <Page style={styles.body} size={"A4"}>
+        <View
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+          }}
+        >
+          <View style={styles.header}>
+            <Image src="/images/light-it_logo_white.png" style={styles.image} />
             <View
               style={{
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
+                textAlign: "right",
+                marginLeft: "auto",
+                marginTop: "auto",
+                marginBottom: "auto",
+                color: "white",
               }}
             >
-              <View style={styles.header}>
-                <Image
-                  src="/images/light-it_logo_white.png"
-                  style={styles.image}
-                />
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    textAlign: "right",
-                    marginLeft: "auto",
-                    marginTop: "auto",
-                    marginBottom: "auto",
-                    color: "white",
-                  }}
-                >
-                  <Text style={styles.header_text}>
-                    Date: {getDateFormat(submission.created_at)}
-                  </Text>
-                  <Text style={styles.header_text}>
-                    Submission ID: {submission.id}
-                  </Text>
-                </View>
+              <Text style={styles.header_text}>
+                Date: {getDateFormat(submission.created_at)}
+              </Text>
+              <Text style={styles.header_text}>
+                Submission ID: {submission.id}
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              marginHorizontal: "8%",
+              marginTop: "3%",
+              marginBottom: "3%",
+            }}
+          >
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                marginTop: "3%",
+              }}
+            >
+              <View style={styles.box}>
+                <Text style={styles.box_title}>Patient Information</Text>
+                <Text style={styles.box_text}>{submission.patient.name}</Text>
+                <Text style={styles.box_text}>{submission.patient.email}</Text>
+                <Text style={styles.box_text}>+598 98 765 432</Text>
               </View>
-              <View
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  marginHorizontal: "8%",
-                  marginTop: "3%",
-                  marginBottom: "3%",
-                }}
-              >
-                <View
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    marginTop: "3%",
-                  }}
-                >
-                  <View style={styles.box}>
-                    <Text style={styles.box_title}>Patient Information</Text>
-                    <Text style={styles.box_text}>
-                      {submission.patient.name}
-                    </Text>
-                    <Text style={styles.box_text}>
-                      {submission.patient.email}
-                    </Text>
-                    <Text style={styles.box_text}>+598 98 765 432</Text>
-                  </View>
-                  <View style={styles.box}>
-                    <Text style={styles.box_title}>
-                      Patient Physical Description
-                    </Text>
-                    <Text style={styles.box_text}>Height: 180cm</Text>
-                    <Text style={styles.box_text}>Weight: 80kg</Text>
-                    <Text style={styles.box_text}>
-                      Other info: Lorem ipsum dolor sit amet, consectetur
-                      adipiscing
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.paragraph}>
-                  <Text style={styles.title}>Symptoms:</Text>
-                  <Text style={styles.text}>{submission.symptoms}</Text>
-                  <Text style={styles.title}>Other info:</Text>
-                  <Text style={styles.text}>{submission.info}</Text>
-                </View>
-                <View style={styles.paragraph}>
-                  <Text style={styles.title}>Prescription:</Text>
-                  <Text style={styles.text}>{prescription}</Text>
-                </View>
-                <View style={{ display: "flex", flexDirection: "row" }}>
-                  <View style={styles.signature_body}>
-                    <Image
-                      src="/images/doc_signature.png"
-                      style={styles.image}
-                    />
-                    <Text style={styles.signature_text}>
-                      {submission.doctor && submission.doctor.name}
-                    </Text>
-                  </View>
-                </View>
+              <View style={styles.box}>
+                <Text style={styles.box_title}>
+                  Patient Physical Description
+                </Text>
+                <Text style={styles.box_text}>Height: 180cm</Text>
+                <Text style={styles.box_text}>Weight: 80kg</Text>
+                <Text style={styles.box_text}>
+                  Other info: Lorem ipsum dolor sit amet, consectetur adipiscing
+                </Text>
               </View>
             </View>
-          </Page>
-        </Document>
+            <View style={styles.paragraph}>
+              <Text style={styles.title}>Symptoms:</Text>
+              <Text style={styles.text}>{submission.symptoms}</Text>
+              <Text style={styles.title}>Other info:</Text>
+              <Text style={styles.text}>{submission.info}</Text>
+            </View>
+            <View style={styles.paragraph}>
+              <Text style={styles.title}>Prescription:</Text>
+              <Text style={styles.text}>{prescription}</Text>
+            </View>
+            <View style={{ display: "flex", flexDirection: "row" }}>
+              <View style={styles.signature_body}>
+                <Image src="/images/doc_signature.png" style={styles.image} />
+                <Text style={styles.signature_text}>
+                  {submission.doctor && submission.doctor.name}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </Page>
+    </Document>
   );
 };
 

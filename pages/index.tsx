@@ -4,10 +4,8 @@ import { HomeLayout } from "../components/layout";
 import { SubmissionsTable } from "../components/submissions";
 import { Pagination, Submission } from "../interfaces";
 import { getSubmissions } from "../services";
-import { useAuthStore } from "../src/store/auth";
 
 export default function HomePage() {
-  const { token } = useAuthStore();
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
     count: 0,
@@ -24,7 +22,7 @@ export default function HomePage() {
   const [status, setStatus] = useState("");
 
   const { data } = useQuery(["submissions", currentPage, status], () =>
-    getSubmissions(currentPage, status, token)
+    getSubmissions(currentPage, status)
   );
 
   useEffect(() => {

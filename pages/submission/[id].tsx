@@ -2,7 +2,12 @@ import { withRouter } from "next/router";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { Button } from "flowbite-react";
-import { acceptSubmission, getPrescription, getSubmission, uploadPrescription } from '../../services';
+import {
+  acceptSubmission,
+  getPrescription,
+  getSubmission,
+  uploadPrescription,
+} from "../../services";
 import { Status, Submission } from "../../interfaces";
 import { getDateFormat } from "../../utils/date-format";
 import { LoadingIcon } from "../../components/icons";
@@ -10,42 +15,36 @@ import { HomeLayout } from "../../components/layout/HomeLayout";
 import { SubmissionTextBox } from "../../components/submissions";
 import { SubmissionPrescriptionBox } from "../../components/submissions";
 import { Header } from "../../components/ui";
-import { useAuthStore } from "../../src/store/auth";
 
 const SubmissionPage = (props: any) => {
-  const { token } = useAuthStore();
   const { id } = props.router.query;
 
   const [submission, setSubmission] = useState<Submission | null>(null);
   const [loadingCircle, setLoadingCircle] = useState(false);
 
-  useQuery(
-    ["submission", id],
-    () => getSubmission(id, token),
-    {
-      enabled: !!id,
-      onSuccess: (data) => {
-        setSubmission(data.data);
-      }
-    }
-  );
+  useQuery(["submission", id], () => getSubmission(id), {
+    enabled: !!id,
+    onSuccess: (data) => {
+      setSubmission(data.data);
+    },
+  });
 
   const { data: prescription } = useQuery(
     ["prescription", id],
-    () => getPrescription(id, token),
+    () => getPrescription(id),
     { enabled: !!id && submission?.prescription !== null }
   );
 
   const handleAcceptSubmission = async () => {
     setLoadingCircle(true);
-    const data = await acceptSubmission(id, token);
+    const data = await acceptSubmission(id);
     setSubmission(data.data);
     setLoadingCircle(false);
   };
 
   const handleUploadPrescription = async (file: File) => {
     setLoadingCircle(true);
-    const data = await uploadPrescription(id, file, token);
+    const data = await uploadPrescription(id, file);
     setSubmission(data.data);
     setLoadingCircle(false);
   };
