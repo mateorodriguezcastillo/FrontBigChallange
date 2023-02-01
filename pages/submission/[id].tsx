@@ -1,53 +1,31 @@
 import { withRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Button } from "flowbite-react";
-import {
-  acceptSubmission,
-  getPrescription,
-  getSubmission,
-  uploadPrescription,
-} from "../../services";
-import { Status, Submission } from "../../interfaces";
+import { getPrescription } from "../../services";
+import { Status } from "../../interfaces";
 import { getDateFormat } from "../../utils/date-format";
 import { LoadingIcon } from "../../components/icons";
 import { HomeLayout } from "../../components/layout/HomeLayout";
-import { SubmissionTextBox } from "../../components/submissions";
-import { SubmissionPrescriptionBox } from "../../components/submissions";
+import {
+  SubmissionTextBox,
+  SubmissionPrescriptionBox,
+} from "../../components/submissions";
 import { Header } from "../../components/ui";
+import { useSubmissionQuery } from "../../hooks";
 
 const SubmissionPage = (props: any) => {
   const { id } = props.router.query;
-
-  const [submission, setSubmission] = useState<Submission | null>(null);
-  const [loadingCircle, setLoadingCircle] = useState(false);
-
-  useQuery(["submission", id], () => getSubmission(id), {
-    enabled: !!id,
-    onSuccess: (data) => {
-      setSubmission(data.data);
-    },
-  });
+  const { submission, submissionQuery, acceptMutation, uploadMutation } =
+    useSubmissionQuery(id);
 
   const { data: prescription } = useQuery(
     ["prescription", id],
     () => getPrescription(id),
-    { enabled: !!id && submission?.prescription !== null }
+    { enabled: !!id && submission?.status === Status.Done }
   );
-
-  const handleAcceptSubmission = async () => {
-    setLoadingCircle(true);
-    const data = await acceptSubmission(id);
-    setSubmission(data.data);
-    setLoadingCircle(false);
-  };
-
-  const handleUploadPrescription = async (file: File) => {
-    setLoadingCircle(true);
-    const data = await uploadPrescription(id, file);
-    setSubmission(data.data);
-    setLoadingCircle(false);
-  };
+  
+  submissionQuery;
 
   return (
     <HomeLayout
@@ -67,9 +45,9 @@ const SubmissionPage = (props: any) => {
               {submission.status === Status.Pending && (
                 <Button
                   className="mt-auto mb-auto w-36"
-                  onClick={handleAcceptSubmission}
+                  onClick={ () => acceptMutation.mutate() }
                 >
-                  {loadingCircle ? (
+                  {acceptMutation.isLoading ? (
                     <LoadingIcon />
                   ) : (
                     <span className="text-sm text-white">Accept</span>
@@ -103,10 +81,10 @@ const SubmissionPage = (props: any) => {
                   type={
                     submission.status !== Status.Done ? "upload" : "download"
                   }
-                  uploading={loadingCircle}
+                  uploading={uploadMutation.isLoading}
                   submission={submission}
                   prescription={prescription}
-                  uploadPrescription={handleUploadPrescription}
+                  uploadPrescription={ (file: File) => uploadMutation.mutate(file) }
                 />
               </div>
             </div>

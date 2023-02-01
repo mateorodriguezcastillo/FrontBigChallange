@@ -51,6 +51,7 @@ export const SubmissionPrescriptionBox: FC<SubmissionPrescriptionBoxProps> = ({
             <UploadIcon className="mr-4 text-black dark:text-white" />
             <input
               type="file"
+              accept=".txt"
               className="hidden"
               onChange={(e) => {
                 const file = e.target.files[0];
