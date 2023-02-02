@@ -1,10 +1,11 @@
+import { useState } from "react";
 import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
 import { Button } from "flowbite-react";
-import { UserIcon } from "../../components/icons";
+import { LoadingIcon, UserIcon } from "../../components/icons";
 import { AuthLayout } from "../../components/layout";
 import { RadioButton, TextInput } from "../../components/ui";
 
@@ -43,6 +44,7 @@ const RegisterPage = () => {
   });
 
   const router = useRouter();
+  const [loadingCircle, setLoadingCircle] = useState(false);
 
   const onSubmit: SubmitHandler<FormSchemaType> = (values) => {
     axios
@@ -124,9 +126,12 @@ const RegisterPage = () => {
 
           <Button
             className="mt-4 w-full shadow-xl"
-            onClick={handleSubmit(onSubmit)}
+            onClick={() => {
+              setLoadingCircle(true);
+              handleSubmit(onSubmit)();
+            }}
           >
-            Sign Up
+            {loadingCircle ? <LoadingIcon /> : "Sign Up"}
           </Button>
         </div>
       </form>
