@@ -6,8 +6,8 @@ export interface Submission {
   status: Status;
   created_at: Date;
   patient: User;
-  doctor: User;
-  prescription: null;
+  doctor?: User;
+  prescription?: null;
 }
 
 export interface User {
