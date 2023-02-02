@@ -1,11 +1,12 @@
 import { FC } from "react";
+import { Status } from "../../interfaces";
 import { ArrowIcon } from "../icons";
-import { StatusBadge, StatusEnum } from "../submissions";
+import { StatusBadge } from "../submissions";
 
 interface HeaderProps {
   title: string;
   subtitle?: string;
-  status?: StatusEnum;
+  status?: Status;
   date?: string;
   doctor?: string;
 }
