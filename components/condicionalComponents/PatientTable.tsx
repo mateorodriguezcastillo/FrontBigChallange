@@ -13,11 +13,11 @@ const getOwnSubmissions = async (
   token: string
 ) => {
   const res = await axios.get(
-    `http://localhost/api/submission/user/"
+    `http://localhost/api/submission/user/
         ${userId}
-        "?page="
+        ?page=
         ${currentPage}
-        "&status="
+        &status=
         ${status}`,
     {
       headers: {

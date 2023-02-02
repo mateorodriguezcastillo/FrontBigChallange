@@ -14,16 +14,18 @@ interface TextInputProps {
   inputClassName?: string;
   labelClassName?: string;
   type?: string;
-  register: UseFormRegister<{
-    password: string;
-    email: string;
-    name: string;
-    password_confirmation: string;
-    role: string;
-  }> | UseFormRegister<{
-    title: string;
-    symptoms: string;
-  }>;
+  register:
+    | UseFormRegister<{
+        password: string;
+        email: string;
+        name: string;
+        password_confirmation: string;
+        role: string;
+      }>
+    | UseFormRegister<{
+        title: string;
+        symptoms: string;
+      }>;
   errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 

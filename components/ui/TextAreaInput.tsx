@@ -1,17 +1,26 @@
 import { FC } from "react";
 import { upperFirst } from "lodash/fp";
-import { FieldError, FieldErrorsImpl, Merge, UseFormRegister } from "react-hook-form";
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  UseFormRegister,
+} from "react-hook-form";
 
 interface TextAreaInputProps {
   inputName: string;
   register: UseFormRegister<{
     title: string;
     symptoms: string;
-  }>
+  }>;
   errors: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
-export const TextAreaInput: FC<TextAreaInputProps> = ({ inputName, register, errors }) => {
+export const TextAreaInput: FC<TextAreaInputProps> = ({
+  inputName,
+  register,
+  errors,
+}) => {
   return (
     <>
       <label
