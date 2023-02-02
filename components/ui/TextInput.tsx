@@ -72,7 +72,7 @@ export const TextInput: FC<TextInputProps> = ({
         />
         {type === "password" && (
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-sm leading-5">
-            <button type="button" onClick={changeType}>
+            <button onClick={changeType} type="button">
               {currentType === "password" ? (
                 <EyeSlashIcon className="text-black dark:text-white" />
               ) : (
