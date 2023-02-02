@@ -1,46 +1,15 @@
-import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
 import { HomeLayout } from "../components/layout";
-import { SubmissionsTable } from "../components/submissions";
-import { Pagination, Submission } from "../interfaces";
-import { getSubmissions } from "../services";
+import { useAuthStore } from "../src/store/auth";
+import { DoctorTable, PatientTable } from "../components/condicionalComponents";
 
 export default function HomePage() {
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
-  const [pagination, setPagination] = useState<Pagination>({
-    count: 0,
-    total: 0,
-    perPage: 0,
-    currentPage: 0,
-    totalPages: 0,
-    links: {
-      next: "",
-      previous: "",
-    },
-  });
-  const [currentPage, setCurrentPage] = useState(1);
-  const [status, setStatus] = useState("");
-
-  const { data } = useQuery(["submissions", currentPage, status], () =>
-    getSubmissions(currentPage, status)
-  );
-
-  useEffect(() => {
-    if (data) {
-      setSubmissions(data.data);
-      setPagination(data.pagination);
-    }
-  }, [currentPage, status, data]);
+  const { user } = useAuthStore();
 
   return (
     <>
       <HomeLayout title={"Home page"} pageDescription={"Prescription pool"}>
-        <SubmissionsTable
-          submissions={submissions}
-          pagination={pagination}
-          changeStatus={setStatus}
-          changePage={setCurrentPage}
-        />
+        {user?.role_name === "patient" && <PatientTable />}
+        {user?.role_name === "doctor" && <DoctorTable />}
       </HomeLayout>
     </>
   );

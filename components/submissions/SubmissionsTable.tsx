@@ -1,20 +1,22 @@
 import { FC } from "react";
 import { useRouter } from "next/router";
-import { Pagination, Submission } from "../../interfaces";
+import { Pagination, Status, Submission } from "../../interfaces";
 import { StatusBadge } from "./StatusBadge";
 import { ChevronIcon } from "../icons/Icons";
 import { getDateFormat } from "../../utils";
 
 interface SubmissionsTableProps {
   submissions: Submission[];
-  pagination: Pagination;
-  changeStatus: (status: string) => void;
+  pagination: Pagination | null;
+  status: Status | "";
+  changeStatus: (status: Status | "") => void;
   changePage: (page: number) => void;
 }
 
 export const SubmissionsTable: FC<SubmissionsTableProps> = ({
   submissions,
   pagination,
+  status,
   changeStatus,
   changePage,
 }) => {
@@ -41,13 +43,11 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
                     dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
           onChange={(e) => {
             changePage(1);
-            if (e.target.value !== "all") 
-              changeStatus(e.target.value);
-            else 
-              changeStatus("");
+            changeStatus(e.target.value as Status | "");
           }}
+          value={status}
         >
-          <option defaultValue="all" value="all">
+          <option value="">
             All submissions
           </option>
           <option value="pending">Pending</option>
@@ -108,38 +108,40 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
           </tbody>
         </table>
       </div>
-      <div className="mt-4 flex justify-center">
-        <div className="flex flex-col text-center">
-          <nav
-            className="relative z-0 inline-flex -space-x-px rounded-md shadow-sm"
-            aria-label="Pagination"
-          >
-            <button
-              type="button"
-              className={`relative inline-flex items-center rounded-l-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-black dark:text-gray-300 dark:hover:bg-gray-800`}
-              onClick={() => {
-                changePage(pagination.currentPage - 1);
-              }}
-              disabled={!pagination.links?.previous}
+      {pagination && (
+        <div className="mt-4 flex justify-center">
+          <div className="flex flex-col text-center">
+            <nav
+              className="relative z-0 inline-flex -space-x-px rounded-md shadow-sm"
+              aria-label="Pagination"
             >
-              <ChevronIcon direction={"left"} />
-            </button>
-            <button
-              type="button"
-              className={`relative inline-flex items-center rounded-r-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-black dark:text-gray-300 dark:hover:bg-gray-800`}
-              onClick={() => {
-                changePage(pagination.currentPage + 1);
-              }}
-              disabled={!pagination.links?.next}
-            >
-              <ChevronIcon direction={"right"} />
-            </button>
-          </nav>
-          <p className="mt-2 text-sm font-light text-black dark:text-gray-400 ">
-            Page {pagination.currentPage} of {pagination.totalPages}
-          </p>
+              <button
+                type="button"
+                className={`relative inline-flex items-center rounded-l-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-black dark:text-gray-300 dark:hover:bg-gray-800`}
+                onClick={() => {
+                  changePage(pagination.currentPage - 1);
+                }}
+                disabled={!pagination.links?.previous}
+              >
+                <ChevronIcon direction={"left"} />
+              </button>
+              <button
+                type="button"
+                className={`relative inline-flex items-center rounded-r-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-black dark:text-gray-300 dark:hover:bg-gray-800`}
+                onClick={() => {
+                  changePage(pagination.currentPage + 1);
+                }}
+                disabled={!pagination.links?.next}
+              >
+                <ChevronIcon direction={"right"} />
+              </button>
+            </nav>
+            <p className="mt-2 text-sm font-light text-black dark:text-gray-400 ">
+              Page {pagination.currentPage} of {pagination.totalPages}
+            </p>
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
