@@ -1,7 +1,11 @@
 import { FC } from "react";
-import { upperFirst } from "lodash/fp";
-import { FieldError, Merge, FieldErrorsImpl, UseFormRegister } from 'react-hook-form';
-import { FormSchemaType as PatientInfoForm } from '../../pages/patient-information'
+import {
+  FieldError,
+  Merge,
+  FieldErrorsImpl,
+  UseFormRegister,
+} from "react-hook-form";
+import { FormSchemaType as PatientInfoForm } from "../../pages/patient-information";
 
 interface TextAreaInputProps {
   inputName: string;
@@ -10,7 +14,12 @@ interface TextAreaInputProps {
   errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
-export const TextAreaInput: FC<TextAreaInputProps> = ({ inputName, labelName, register, errors }) => {
+export const TextAreaInput: FC<TextAreaInputProps> = ({
+  inputName,
+  labelName,
+  register,
+  errors,
+}) => {
   return (
     <>
       <label
