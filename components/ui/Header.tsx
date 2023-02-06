@@ -19,7 +19,7 @@ export const Header: FC<HeaderProps> = ({
   doctor,
 }) => {
   return (
-    <div className="ml-2 w-1/2">
+    <div className="ml-2 w-2/3">
       <button
         onClick={() => {
           window.history.back();
