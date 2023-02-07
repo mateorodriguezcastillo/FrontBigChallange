@@ -1,9 +1,19 @@
 import axios from "axios";
+import { FormSchemaType } from "../pages/patient-information";
 import { useAuthStore } from "../src/store/auth";
 
 const api = "http://localhost/api";
 
 const token = useAuthStore.getState().token;
+
+export const completeProfile = async (data: FormSchemaType) => {
+  const res = await axios.post(`${api}/complete-profile`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+};
 
 export const getSubmission = async (id: number) => {
   const res = await axios.get(`${api}/submission/${id}`, {

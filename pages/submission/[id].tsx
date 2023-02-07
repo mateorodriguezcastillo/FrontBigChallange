@@ -1,5 +1,4 @@
 import { withRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { Button } from "flowbite-react";
 import { getPrescription } from "../../services";
@@ -13,19 +12,18 @@ import {
 } from "../../components/submissions";
 import { Header } from "../../components/ui";
 import { useSubmissionQuery } from "../../hooks";
+import { useAuthStore } from "../../src/store/auth";
 
 const SubmissionPage = (props: any) => {
   const { id } = props.router.query;
-  const { submission, submissionQuery, acceptMutation, uploadMutation } =
-    useSubmissionQuery(id);
+  const { submission, acceptMutation, uploadMutation } = useSubmissionQuery(id);
+  const { user } = useAuthStore();
 
   const { data: prescription } = useQuery(
     ["prescription", id],
     () => getPrescription(id),
     { enabled: !!id && submission?.status === Status.Done }
   );
-  
-  submissionQuery;
 
   return (
     <HomeLayout
@@ -42,18 +40,19 @@ const SubmissionPage = (props: any) => {
               doctor={submission.doctor ? submission.doctor.name : undefined}
             />
             <div className="mt-6 flex align-middle">
-              {submission.status === Status.Pending && (
-                <Button
-                  className="mt-auto mb-auto w-36"
-                  onClick={ () => acceptMutation.mutate() }
-                >
-                  {acceptMutation.isLoading ? (
-                    <LoadingIcon />
-                  ) : (
-                    <span className="text-sm text-white">Accept</span>
-                  )}
-                </Button>
-              )}
+              {user?.role_name === "doctor" &&
+                submission.status === Status.Pending && (
+                  <Button
+                    className="mt-auto mb-auto w-36"
+                    onClick={() => acceptMutation.mutate()}
+                  >
+                    {acceptMutation.isLoading ? (
+                      <LoadingIcon />
+                    ) : (
+                      <span className="text-sm text-white">Accept</span>
+                    )}
+                  </Button>
+                )}
             </div>
           </div>
           <hr className="mb-6" />
@@ -63,10 +62,15 @@ const SubmissionPage = (props: any) => {
                 title="Email address"
                 subtitle={submission.patient.email}
               />
-              {/* TODO: Add phone number to patient in backend */}
-              <SubmissionTextBox title="Phone" subtitle="+598 96789268" />
+              <SubmissionTextBox
+                title="Phone"
+                subtitle={submission.patient.phone ?? "No phone provided"}
+              />
             </div>
-            <SubmissionTextBox title="Other info" subtitle={submission.info} />
+            <SubmissionTextBox
+              title="Other info"
+              subtitle={submission.patient.other_info ?? "No info provided"}
+            />
             <SubmissionTextBox
               title="Symptoms"
               subtitle={submission.symptoms}
@@ -77,14 +81,16 @@ const SubmissionPage = (props: any) => {
               </h3>
               <div className="flex w-full justify-between rounded-lg bg-gray-100 p-2 dark:bg-gray-700">
                 <SubmissionPrescriptionBox
-                  // canUpload={submission.doctor && submission.doctor.id === user.id}
                   type={
                     submission.status !== Status.Done ? "upload" : "download"
                   }
                   uploading={uploadMutation.isLoading}
+                  canUpload={user?.role_name === "doctor"}
                   submission={submission}
                   prescription={prescription}
-                  uploadPrescription={ (file: File) => uploadMutation.mutate(file) }
+                  uploadPrescription={(file: File) =>
+                    uploadMutation.mutate(file)
+                  }
                 />
               </div>
             </div>
