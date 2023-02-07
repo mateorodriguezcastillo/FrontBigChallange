@@ -15,6 +15,7 @@ interface SubmissionPrescriptionBoxProps {
   submission: Submission;
   prescription: string;
   uploading: boolean;
+  canUpload: boolean;
   uploadPrescription: (file: File) => void;
 }
 
@@ -23,6 +24,7 @@ export const SubmissionPrescriptionBox: FC<SubmissionPrescriptionBoxProps> = ({
   submission,
   prescription,
   uploading,
+  canUpload,
   uploadPrescription,
 }) => {
   return (
@@ -46,7 +48,8 @@ export const SubmissionPrescriptionBox: FC<SubmissionPrescriptionBoxProps> = ({
       ) : (
         type === "upload" &&
         submission.status === Status.InProgress &&
-        !uploading && (
+        !uploading &&
+        canUpload && (
           <label className="cursor-pointer">
             <UploadIcon className="mr-4 text-black dark:text-white" />
             <input
