@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
+import { useQuery } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import router from "next/router";
 import { Header, TextAreaInput, TextInput } from "../../components/ui";
 import { HomeLayout } from "../../components/layout";
 import { Button } from "flowbite-react";
 import { useAuthStore } from "../../src/store/auth";
+import { createSubmission } from "../../services";
 
-type FormSchemaType = z.infer<typeof schema>;
+export type FormSchemaType = z.infer<typeof schema>;
 
 const rMsg = "This field is required";
 
@@ -19,8 +20,6 @@ const schema = z.object({
 });
 
 const CreateSubmissionPage = () => {
-  const { token } = useAuthStore();
-
   const {
     register,
     handleSubmit,
@@ -29,19 +28,15 @@ const CreateSubmissionPage = () => {
     resolver: zodResolver(schema),
   });
 
+  const [values, setValues] = useState<FormSchemaType | null>(null);
+
+  useQuery(["create-submission", values], () => createSubmission(values), {
+    enabled: !!values,
+    onSuccess: () => router.push("/"),
+  });
+
   const onSubmit: SubmitHandler<FormSchemaType> = (values) => {
-    axios
-      .post("http://localhost/api/submission", values, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        router.push("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    setValues(values);
   };
 
   return (
@@ -61,7 +56,8 @@ const CreateSubmissionPage = () => {
               errors={errors}
             />
             <TextAreaInput
-              inputName="symptoms"
+              inputName={"symptoms"}
+              labelName={"Symptoms"}
               register={register}
               errors={errors}
             />

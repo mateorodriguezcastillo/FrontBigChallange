@@ -6,11 +6,14 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 import { FormSchemaType as PatientInfoForm } from "../../pages/patient-information";
+import { FormSchemaType as CreateSubmissionForm } from "../../pages/submission/create";
 
 interface TextAreaInputProps {
   inputName: string;
   labelName: string;
-  register: UseFormRegister<PatientInfoForm>;
+  register:
+    | UseFormRegister<PatientInfoForm>
+    | UseFormRegister<CreateSubmissionForm>;
   errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 

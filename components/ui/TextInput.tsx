@@ -9,6 +9,7 @@ import { tw } from "../../utils";
 import { EyeIcon, EyeSlashIcon } from "../icons/Icons";
 import { FormSchemaType as PatientInfoForm } from "../../pages/patient-information";
 import { FormSchemaType as RegisterForm } from "../../pages/auth/register";
+import { FormSchemaType as CreateSubmissionForm } from "../../pages/submission/create";
 
 interface TextInputProps {
   inputName: string;
@@ -16,7 +17,10 @@ interface TextInputProps {
   inputClassName?: string;
   labelClassName?: string;
   type?: string;
-  register: UseFormRegister<RegisterForm> | UseFormRegister<PatientInfoForm>;
+  register:
+    | UseFormRegister<RegisterForm>
+    | UseFormRegister<PatientInfoForm>
+    | UseFormRegister<CreateSubmissionForm>;
   errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
@@ -55,7 +59,7 @@ export const TextInput: FC<TextInputProps> = ({
           type={currentType}
           id={inputName}
           className={tw(
-            `mr-2 block w-1/2 rounded-lg border 
+            `!autofill:bg-red-500 !autofill:text-white mr-2 block w-1/2 rounded-lg border
                             border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 
                             focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 
                             dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`,
