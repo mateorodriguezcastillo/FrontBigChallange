@@ -16,6 +16,11 @@ export interface User {
   role_name: string;
   name: string;
   email: string;
+  phone?: string;
+  height?: number;
+  weight?: number;
+  other_info?: string;
+  isProfileCompleted?: boolean;
   email_verified_at?: Date;
   created_at?: Date;
   updated_at?: Date;

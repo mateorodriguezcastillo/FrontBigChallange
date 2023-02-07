@@ -47,9 +47,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
           }}
           value={status}
         >
-          <option value="">
-            All submissions
-          </option>
+          <option value="">All submissions</option>
           <option value="pending">Pending</option>
           <option value="in_progress">In Progress</option>
           <option value="done">Done</option>

@@ -38,9 +38,14 @@ const LoginPage = () => {
           name: res.data.data.name,
           email: res.data.data.email,
           role_name: res.data.data.role,
+          isProfileCompleted: res.data.data.isComplete,
         });
         setToken(res.data.token);
-        router.push("/");
+        if (res.data.data.isComplete || res.data.data.role === "doctor") {
+          router.push("/");
+        } else {
+          router.push("/patient-information");
+        }
       })
       .catch((err) => {
         console.log(err);

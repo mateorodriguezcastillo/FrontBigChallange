@@ -71,24 +71,26 @@ export const PDFDocSubmission: FC<PDFDocSubmissionProps> = ({
                 <Text style={styles.box_title}>Patient Information</Text>
                 <Text style={styles.box_text}>{submission.patient.name}</Text>
                 <Text style={styles.box_text}>{submission.patient.email}</Text>
-                <Text style={styles.box_text}>+598 98 765 432</Text>
+                <Text style={styles.box_text}>{submission.patient.phone}</Text>
               </View>
               <View style={styles.box}>
                 <Text style={styles.box_title}>
                   Patient Physical Description
                 </Text>
-                <Text style={styles.box_text}>Height: 180cm</Text>
-                <Text style={styles.box_text}>Weight: 80kg</Text>
                 <Text style={styles.box_text}>
-                  Other info: Lorem ipsum dolor sit amet, consectetur adipiscing
+                  Height: {submission.patient.height}cm
+                </Text>
+                <Text style={styles.box_text}>
+                  Weight: {submission.patient.weight}kg
+                </Text>
+                <Text style={styles.box_text}>
+                  Other info: {submission.patient.other_info}
                 </Text>
               </View>
             </View>
             <View style={styles.paragraph}>
               <Text style={styles.title}>Symptoms:</Text>
               <Text style={styles.text}>{submission.symptoms}</Text>
-              <Text style={styles.title}>Other info:</Text>
-              <Text style={styles.text}>{submission.info}</Text>
             </View>
             <View style={styles.paragraph}>
               <Text style={styles.title}>Prescription:</Text>

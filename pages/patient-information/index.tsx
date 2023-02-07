@@ -1,8 +1,47 @@
+import { useQuery } from "react-query";
+import { useState } from "react";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useRouter } from "next/router";
 import { Button } from "flowbite-react";
 import { HomeLayout } from "../../components/layout";
 import { Header, TextAreaInput, TextInput } from "../../components/ui";
+import { completeProfile } from "../../services";
+
+export type FormSchemaType = z.infer<typeof schema>;
+
+const rMsg = "This field is required";
+
+const schema = z.object({
+  phone: z.string().trim().min(1, rMsg),
+  height: z.string().min(1, rMsg),
+  weight: z.string().min(1, rMsg),
+  other_info: z.string().min(1, rMsg),
+});
 
 const PatientInformationPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormSchemaType>({
+    resolver: zodResolver(schema),
+  });
+
+  const [values, setValues] = useState<FormSchemaType | null>(null);
+
+  useQuery(["complete-profile", values], () => completeProfile(values), {
+    enabled: !!values,
+    onSuccess: () => router.push("/"),
+  });
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<FormSchemaType> = (values) => {
+    setValues(values);
+  };
+
   return (
     <HomeLayout
       title={"Patient Information"}
@@ -16,22 +55,46 @@ const PatientInformationPage = () => {
           }
         />
         <hr className="mb-6" />
-        <div className="m-2">
-          <TextInput inputName="phone" type="text" />
-          <div className="flex w-1/2">
-            <TextInput inputClassName="w-11/12" inputName="weight" />
-            <TextInput inputClassName="w-full" inputName="height" />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="m-2">
+            <TextInput
+              inputName="phone"
+              labelName="Phone"
+              register={register}
+              errors={errors}
+            />
+            <div className="flex w-1/2">
+              <TextInput
+                inputClassName="w-11/12"
+                inputName="weight"
+                labelName="Weight"
+                register={register}
+                errors={errors}
+              />
+              <TextInput
+                inputClassName="w-full"
+                inputName="height"
+                labelName="Height"
+                register={register}
+                errors={errors}
+              />
+            </div>
+            <TextAreaInput
+              inputName="other_info"
+              labelName="Other information"
+              register={register}
+              errors={errors}
+            />
+            <Button
+              className="mt-8 px-5 py-2 font-normal"
+              type="submit"
+              size="large"
+              onClick={() => {}}
+            >
+              Send submission
+            </Button>
           </div>
-          <TextAreaInput inputName="other info" />
-          <Button
-            className="mt-8 px-5 py-2 font-normal"
-            type="submit"
-            size="large"
-            onClick={() => {}}
-          >
-            Send submission
-          </Button>
-        </div>
+        </form>
       </div>
     </HomeLayout>
   );

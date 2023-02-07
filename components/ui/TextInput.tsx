@@ -7,6 +7,8 @@ import {
 } from "react-hook-form";
 import { tw } from "../../utils";
 import { EyeIcon, EyeSlashIcon } from "../icons/Icons";
+import { FormSchemaType as PatientInfoForm } from "../../pages/patient-information";
+import { FormSchemaType as RegisterForm } from "../../pages/auth/register";
 
 interface TextInputProps {
   inputName: string;
@@ -14,18 +16,7 @@ interface TextInputProps {
   inputClassName?: string;
   labelClassName?: string;
   type?: string;
-  register:
-    | UseFormRegister<{
-        password: string;
-        email: string;
-        name: string;
-        password_confirmation: string;
-        role: string;
-      }>
-    | UseFormRegister<{
-        title: string;
-        symptoms: string;
-      }>;
+  register: UseFormRegister<RegisterForm> | UseFormRegister<PatientInfoForm>;
   errors?: string | FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
 }
 
