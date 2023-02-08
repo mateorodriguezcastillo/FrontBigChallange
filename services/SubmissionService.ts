@@ -1,8 +1,9 @@
 import axios from "axios";
 import { FormSchemaType } from "../pages/patient-information";
+import { Status } from "../interfaces";
 import { useAuthStore } from "../src/store/auth";
 
-const api = "http://localhost/api";
+const api = process.env.NEXT_PUBLIC_API_URL;
 
 const token = useAuthStore.getState().token;
 
@@ -30,6 +31,27 @@ export const getSubmissions = async (currentPage: number, status: string) => {
     {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return res.data;
+};
+
+export const getOwnSubmissions = async (
+  userId: number | undefined,
+  currentPage: number,
+  status: Status | ""
+) => {
+  const res = await axios.get(
+    `${api}/submission/user/
+        ${userId}
+        ?page=
+        ${currentPage}
+        &status=
+        ${status}`,
+    {
+      headers: {
+        Authorization: "Bearer " + token,
       },
     }
   );

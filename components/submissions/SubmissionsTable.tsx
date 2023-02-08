@@ -3,22 +3,27 @@ import { useRouter } from "next/router";
 import { Pagination, Status, Submission } from "../../interfaces";
 import { StatusBadge } from "./StatusBadge";
 import { ChevronIcon } from "../icons/Icons";
-import { getDateFormat } from "../../utils";
+import { getDateFormat, tw } from "../../utils";
+import { Switch } from "../ui";
 
 interface SubmissionsTableProps {
   submissions: Submission[];
   pagination: Pagination | null;
   status: Status | "";
+  viewOwnSubmissions?: boolean;
   changeStatus: (status: Status | "") => void;
   changePage: (page: number) => void;
+  changeViewOwnSubmissions?: (viewOwnSubmissions: boolean) => void;
 }
 
 export const SubmissionsTable: FC<SubmissionsTableProps> = ({
   submissions,
   pagination,
   status,
+  viewOwnSubmissions,
   changeStatus,
   changePage,
+  changeViewOwnSubmissions,
 }) => {
   const router = useRouter();
 
@@ -34,10 +39,22 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
 
   return (
     <>
-      <div className="mt-6 flex justify-end">
+      <div
+        className={tw(
+          "mt-6 flex p-6",
+          viewOwnSubmissions !== undefined ? "justify-between" : "justify-end"
+        )}
+      >
+        {viewOwnSubmissions !== undefined && changeViewOwnSubmissions && (
+          <Switch
+            checked={viewOwnSubmissions}
+            onChange={() => changeViewOwnSubmissions(!viewOwnSubmissions)}
+            label="Own submissions"
+          />
+        )}
         <select
           id="statusSelectBox"
-          className={`mb-2 mr-4 block w-1/5 rounded-lg border border-gray-300 bg-gray-50 
+          className={`mr-4 block w-1/5 rounded-lg border border-gray-300 bg-gray-50 
                     p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 
                     dark:border-slate-700 dark:bg-black dark:text-white 
                     dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500`}
@@ -47,7 +64,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
           }}
           value={status}
         >
-          <option value="">All submissions</option>
+          <option value="">All</option>
           <option value="pending">Pending</option>
           <option value="in_progress">In Progress</option>
           <option value="done">Done</option>
