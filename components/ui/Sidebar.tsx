@@ -64,11 +64,9 @@ export const Sidebar = () => {
           <div className="mt-1 flex h-full flex-col justify-between">
             {user && (
               <ul className="space-y-2">
-                {tabs.map((tab) => {
-                  if (!tab.restrictions.includes(user.role_name)) {
-                    return null;
-                  }
-                  return (
+                {tabs
+                  .filter((tab) => tab.restrictions.includes(user.role_name))
+                  .map((tab) => (
                     <li key={tab.href}>
                       <a
                         href={tab.href}
@@ -80,8 +78,7 @@ export const Sidebar = () => {
                         </span>
                       </a>
                     </li>
-                  );
-                })}
+                  ))}
               </ul>
             )}
             <div className=" flex w-full items-center justify-between">

@@ -1,10 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import {
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-} from "react-hook-form";
+import { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import { tw } from "../../utils";
 import { EyeIcon, EyeSlashIcon } from "../icons/Icons";
 
