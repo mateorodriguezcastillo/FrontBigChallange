@@ -65,22 +65,22 @@ export const Sidebar = () => {
             {user && (
               <ul className="space-y-2">
                 {tabs.map((tab) => {
-                  if (tab.restrictions.includes(user.role_name)) {
-                    return (
-                      <li key={tab.href}>
-                        <a
-                          href={tab.href}
-                          className="flex items-center rounded-lg p-3 text-base font-normal text-white hover:bg-gray-700"
-                        >
-                          {tab.icon}
-                          <span className="ml-3 flex-1 whitespace-nowrap text-sm">
-                            {tab.name}
-                          </span>
-                        </a>
-                      </li>
-                    );
+                  if (!tab.restrictions.includes(user.role_name)) {
+                    return null;
                   }
-                  return null;
+                  return (
+                    <li key={tab.href}>
+                      <a
+                        href={tab.href}
+                        className="flex items-center rounded-lg p-3 text-base font-normal text-white hover:bg-gray-700"
+                      >
+                        {tab.icon}
+                        <span className="ml-3 flex-1 whitespace-nowrap text-sm">
+                          {tab.name}
+                        </span>
+                      </a>
+                    </li>
+                  );
                 })}
               </ul>
             )}
