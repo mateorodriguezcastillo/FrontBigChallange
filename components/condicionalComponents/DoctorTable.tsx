@@ -1,49 +1,29 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
-import { Status, Submission } from "../../interfaces";
+import { Status } from "../../interfaces";
 import { useAuthStore } from "../../src/store/auth";
 import { SubmissionsTable } from "../submissions";
 import { NoContent } from "../ui";
-import {
-  getOwnSubmissions,
-  getSubmissions,
-} from "../../services/SubmissionService";
-import { Pagination } from "../../interfaces/submission";
+import { useDoctorSubmissionsQuery } from "../../hooks/useDoctorSubmissionsQuery";
 
 export const DoctorTable = () => {
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
-  const [pagination, setPagination] = useState<Pagination | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [status, setStatus] = useState<Status | "">("");
   const [viewOwnSubmissions, setViewOwnSubmissions] = useState(false);
   const { user } = useAuthStore();
 
-  const { isLoading: loadingAll } = useQuery(
-    ["submissions", currentPage, status],
-    () => getSubmissions(currentPage, status),
-    {
-      enabled: !viewOwnSubmissions,
-      onSuccess: (data) => {
-        setSubmissions(data.data);
-        setPagination(data.pagination);
-      },
-    }
-  );
+  const { submissions, pagination, allSubmissions, ownSubmissions } =
+    useDoctorSubmissionsQuery(
+      user?.id,
+      viewOwnSubmissions,
+      currentPage,
+      status
+    );
 
-  const { isLoading: loadingOwn } = useQuery(
-    ["submissions", currentPage, status],
-    () => getOwnSubmissions(user?.id, currentPage, status),
-    {
-      enabled: viewOwnSubmissions,
-      onSuccess: (data) => {
-        setSubmissions(data.data);
-        setPagination(data.pagination);
-      },
-    }
-  );
   return (
     <>
-      {!loadingAll && !loadingOwn && submissions.length > 0 ? (
+      {!allSubmissions.isLoading &&
+      !ownSubmissions.isLoading &&
+      submissions.length > 0 ? (
         <SubmissionsTable
           submissions={submissions}
           pagination={pagination}
@@ -54,8 +34,8 @@ export const DoctorTable = () => {
           changeViewOwnSubmissions={setViewOwnSubmissions}
         />
       ) : (
-        !loadingAll &&
-        !loadingOwn &&
+        !allSubmissions.isLoading &&
+        !ownSubmissions.isLoading &&
         submissions.length === 0 && <NoContent contentType="submissions" />
       )}
     </>

@@ -3,7 +3,7 @@ import { FormSchemaType } from "../pages/patient-information";
 import { Status } from "../interfaces";
 import { useAuthStore } from "../src/store/auth";
 
-const api = "http://localhost/api";
+const api = process.env.NEXT_PUBLIC_API_URL;
 
 const token = useAuthStore.getState().token;
 
@@ -43,7 +43,7 @@ export const getOwnSubmissions = async (
   status: Status | ""
 ) => {
   const res = await axios.get(
-    `http://localhost/api/submission/user/
+    `${api}/submission/user/
         ${userId}
         ?page=
         ${currentPage}

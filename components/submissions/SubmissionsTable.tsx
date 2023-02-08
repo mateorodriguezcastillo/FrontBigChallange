@@ -39,7 +39,12 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
 
   return (
     <>
-      <div className={tw("mt-6 flex p-6", viewOwnSubmissions !== undefined ? "justify-between" : "justify-end")}>
+      <div
+        className={tw(
+          "mt-6 flex p-6",
+          viewOwnSubmissions !== undefined ? "justify-between" : "justify-end"
+        )}
+      >
         {viewOwnSubmissions !== undefined && changeViewOwnSubmissions && (
           <Switch
             checked={viewOwnSubmissions}

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { tw } from "../../utils/merge-classnames";
+import { uuid } from "uuidv4";
 
 interface SwitchProps {
   className?: string;
@@ -14,11 +15,12 @@ export const Switch: FC<SwitchProps> = ({
   label,
   onChange,
 }) => {
-  console.log(checked);
+  const checkboxId = uuid();
+
   return (
     <div className={tw("flex items-center", className)}>
       <label
-        htmlFor="check"
+        htmlFor={checkboxId}
         className={tw(
           "relative h-7 w-14 cursor-pointer rounded-full bg-gray-200 dark:bg-gray-600",
           className
@@ -26,7 +28,7 @@ export const Switch: FC<SwitchProps> = ({
       >
         <input
           type="checkbox"
-          id="check"
+          id={checkboxId}
           className="peer sr-only"
           defaultChecked={checked}
           onChange={() => {
