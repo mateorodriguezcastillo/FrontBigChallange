@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useRouter } from "next/router";
-import axios from "axios";
+import { useMutation } from "react-query";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "flowbite-react";
@@ -9,6 +9,7 @@ import { AuthLayout } from "../../components/layout";
 import { TextInput } from "../../components/ui";
 import { FormSchemaType } from "./register";
 import { useAuthStore } from "../../src/store/auth";
+import { loginUser } from "../../services/SubmissionService";
 
 const rMsg = "This field is required";
 
@@ -29,27 +30,27 @@ const LoginPage = () => {
   const router = useRouter();
   const { setToken, setUser } = useAuthStore();
 
-  const onSubmit: SubmitHandler<FormSchemaType> = (values) => {
-    axios
-      .post("http://localhost/api/login", values)
-      .then((res) => {
-        setUser({
-          id: res.data.data.id,
-          name: res.data.data.name,
-          email: res.data.data.email,
-          role_name: res.data.data.role,
-          isProfileCompleted: res.data.data.isComplete,
-        });
-        setToken(res.data.token);
-        if (res.data.data.isComplete || res.data.data.role === "doctor") {
-          router.push("/");
-        } else {
-          router.push("/patient-information");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
+  const mutateLogin = useMutation({
+    mutationFn: (data: FormSchemaType) => loginUser(data),
+    onSuccess: (res) => {
+      setUser({
+        id: res.data.id,
+        name: res.data.name,
+        email: res.data.email,
+        role_name: res.data.role,
+        isProfileCompleted: res.data.isComplete,
       });
+      setToken(res.token);
+      if (res.data.isComplete || res.data.role === "doctor") {
+        router.push("/");
+      } else {
+        router.push("/patient-information");
+      }
+    },
+  });
+
+  const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
+    mutateLogin.mutate(data);
   };
 
   return (
@@ -65,8 +66,8 @@ const LoginPage = () => {
             labelClassName="text-white"
             inputName={"email"}
             labelName={"Email"}
-            register={register}
             errors={errors}
+            {...register("email")}
           />
           <TextInput
             inputClassName="w-full bg-white border border-gray-300 shadow-xl"
@@ -74,13 +75,10 @@ const LoginPage = () => {
             type="password"
             inputName={"password"}
             labelName={"Password"}
-            register={register}
             errors={errors}
+            {...register("password")}
           />
-          <Button
-            className="mt-4 w-full shadow-xl"
-            onClick={handleSubmit(onSubmit)}
-          >
+          <Button className="mt-4 w-full shadow-xl" type="submit">
             Sign In
           </Button>
         </div>

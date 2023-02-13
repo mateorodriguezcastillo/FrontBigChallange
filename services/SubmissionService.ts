@@ -1,6 +1,7 @@
 import axios from "axios";
 import { FormSchemaType as PatientInformationForm } from "../pages/patient-information";
 import { FormSchemaType as CreateSubmissionForm } from "../pages/submission/create";
+import { FormSchemaType as RegisterForm } from "../pages/auth/register";
 import { Status } from "../interfaces";
 import { useAuthStore } from "../src/store/auth";
 
@@ -103,5 +104,15 @@ export const createSubmission = async (data: CreateSubmissionForm) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  return res.data;
+};
+
+export const loginUser = async (data: RegisterForm) => {
+  const res = await axios.post(`${api}/login`, data);
+  return res.data;
+};
+
+export const registerUser = async (data: RegisterForm) => {
+  const res = await axios.post(`${api}/register`, data);
   return res.data;
 };
