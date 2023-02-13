@@ -1,5 +1,3 @@
-import { useState } from "react";
-import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -8,6 +6,8 @@ import { Button } from "flowbite-react";
 import { LoadingIcon, UserIcon } from "../../components/icons";
 import { AuthLayout } from "../../components/layout";
 import { RadioButton, TextInput } from "../../components/ui";
+import { useMutation } from "react-query";
+import { registerUser } from "../../services/SubmissionService";
 
 export type FormSchemaType = z.infer<typeof schema>;
 
@@ -17,7 +17,12 @@ const schema = z
   .object({
     name: z.string().trim().min(1, rMsg),
     email: z.string().email("Email must be a valid email").min(1, rMsg),
-    password: z.string().min(1, rMsg),
+    password: z
+      .string()
+      .regex(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+      ),
     password_confirmation: z.string().min(1, rMsg),
     role: z
       .string()
@@ -44,17 +49,16 @@ const RegisterPage = () => {
   });
 
   const router = useRouter();
-  const [loadingCircle, setLoadingCircle] = useState(false);
+
+  const mutationRegister = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (res) => {
+      router.push("/auth/verify-email");
+    },
+  });
 
   const onSubmit: SubmitHandler<FormSchemaType> = (values) => {
-    axios
-      .post("http://localhost/api/register", values)
-      .then((res) => {
-        router.push("/auth/verify-email");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    mutationRegister.mutate(values);
   };
 
   return (
@@ -70,16 +74,16 @@ const RegisterPage = () => {
             labelClassName="text-white dark:text-white"
             inputName={"name"}
             labelName={"Name"}
-            register={register}
             errors={errors}
+            {...register("name")}
           />
           <TextInput
             inputClassName="w-full bg-white border border-gray-300 shadow-xl"
             labelClassName="text-white dark:text-white"
             inputName={"email"}
             labelName={"Email"}
-            register={register}
             errors={errors}
+            {...register("email")}
           />
           <TextInput
             inputClassName="w-full bg-white border border-gray-300 shadow-xl"
@@ -87,8 +91,8 @@ const RegisterPage = () => {
             type="password"
             inputName={"password"}
             labelName={"Password"}
-            register={register}
             errors={errors}
+            {...register("password")}
           />
           <TextInput
             inputClassName="w-full bg-white border border-gray-300 shadow-xl"
@@ -96,8 +100,8 @@ const RegisterPage = () => {
             type="password"
             inputName={"password_confirmation"}
             labelName={"Confirm Password"}
-            register={register}
             errors={errors}
+            {...register("password_confirmation")}
           />
           <div className="mb-6">
             <label htmlFor="type" className="mb-2 block text-sm text-white">
@@ -127,11 +131,10 @@ const RegisterPage = () => {
           <Button
             className="mt-4 w-full shadow-xl"
             onClick={() => {
-              setLoadingCircle(true);
               handleSubmit(onSubmit)();
             }}
           >
-            {loadingCircle ? <LoadingIcon /> : "Sign Up"}
+            {mutationRegister.isLoading ? <LoadingIcon /> : "Sign Up"}
           </Button>
         </div>
       </form>

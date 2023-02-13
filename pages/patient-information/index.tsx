@@ -1,5 +1,4 @@
-import { useQuery } from "react-query";
-import { useState } from "react";
+import { useMutation } from "react-query";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -29,17 +28,15 @@ const PatientInformationPage = () => {
     resolver: zodResolver(schema),
   });
 
-  const [values, setValues] = useState<FormSchemaType | null>(null);
+  const router = useRouter();
 
-  useQuery(["complete-profile", values], () => completeProfile(values), {
-    enabled: !!values,
+  const mutationComplete = useMutation({
+    mutationFn: completeProfile,
     onSuccess: () => router.push("/"),
   });
 
-  const router = useRouter();
-
-  const onSubmit: SubmitHandler<FormSchemaType> = (values) => {
-    setValues(values);
+  const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
+    mutationComplete.mutate(data);
   };
 
   return (
@@ -60,36 +57,35 @@ const PatientInformationPage = () => {
             <TextInput
               inputName="phone"
               labelName="Phone"
-              register={register}
               errors={errors}
+              {...register("phone")}
             />
             <div className="flex w-1/2">
               <TextInput
                 inputClassName="w-11/12"
                 inputName="weight"
                 labelName="Weight"
-                register={register}
                 errors={errors}
+                {...register("weight")}
               />
               <TextInput
                 inputClassName="w-full"
                 inputName="height"
                 labelName="Height"
-                register={register}
                 errors={errors}
+                {...register("height")}
               />
             </div>
             <TextAreaInput
               inputName="other_info"
               labelName="Other information"
-              register={register}
               errors={errors}
+              {...register("other_info")}
             />
             <Button
               className="mt-8 px-5 py-2 font-normal"
               type="submit"
               size="large"
-              onClick={() => {}}
             >
               Send submission
             </Button>
