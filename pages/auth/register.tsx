@@ -50,15 +50,15 @@ const RegisterPage = () => {
 
   const router = useRouter();
 
-  const mutateRegister = useMutation({
-    mutationFn: (data: FormSchemaType) => registerUser(data),
+  const mutationRegister = useMutation({
+    mutationFn: registerUser,
     onSuccess: (res) => {
       router.push("/auth/verify-email");
     },
   });
 
   const onSubmit: SubmitHandler<FormSchemaType> = (values) => {
-    mutateRegister.mutate(values);
+    mutationRegister.mutate(values);
   };
 
   return (
@@ -134,7 +134,7 @@ const RegisterPage = () => {
               handleSubmit(onSubmit)();
             }}
           >
-            {mutateRegister.isLoading ? <LoadingIcon /> : "Sign Up"}
+            {mutationRegister.isLoading ? <LoadingIcon /> : "Sign Up"}
           </Button>
         </div>
       </form>

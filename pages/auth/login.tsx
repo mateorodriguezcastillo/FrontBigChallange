@@ -30,8 +30,8 @@ const LoginPage = () => {
   const router = useRouter();
   const { setToken, setUser } = useAuthStore();
 
-  const mutateLogin = useMutation({
-    mutationFn: (data: FormSchemaType) => loginUser(data),
+  const mutationLogin = useMutation({
+    mutationFn: loginUser,
     onSuccess: (res) => {
       setUser({
         id: res.data.id,
@@ -50,7 +50,7 @@ const LoginPage = () => {
   });
 
   const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
-    mutateLogin.mutate(data);
+    mutationLogin.mutate(data);
   };
 
   return (

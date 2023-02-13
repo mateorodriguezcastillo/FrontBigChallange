@@ -27,14 +27,13 @@ const CreateSubmissionPage = () => {
     resolver: zodResolver(schema),
   });
 
-  const mutateCreate = useMutation({
-    mutationFn: (newSubmission: FormSchemaType) =>
-      createSubmission(newSubmission),
+  const mutationCreate = useMutation({
+    mutationFn: createSubmission,
     onSuccess: () => router.push("/"),
   });
 
   const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
-    mutateCreate.mutate(data);
+    mutationCreate.mutate(data);
   };
 
   return (

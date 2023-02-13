@@ -30,13 +30,13 @@ const PatientInformationPage = () => {
 
   const router = useRouter();
 
-  const mutateComplete = useMutation({
-    mutationFn: (data: FormSchemaType) => completeProfile(data),
+  const mutationComplete = useMutation({
+    mutationFn: completeProfile,
     onSuccess: () => router.push("/"),
   });
 
   const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
-    mutateComplete.mutate(data);
+    mutationComplete.mutate(data);
   };
 
   return (
