@@ -100,7 +100,8 @@ export const PDFDocSubmission: FC<PDFDocSubmissionProps> = ({
               <View style={styles.signature_body}>
                 <Image src="/images/doc_signature.png" style={styles.image} />
                 <Text style={styles.signature_text}>
-                  {submission.doctor && submission.doctor.name}
+                  {submission.doctor && 
+                    "Dr. " + submission.doctor.name}
                 </Text>
               </View>
             </View>
