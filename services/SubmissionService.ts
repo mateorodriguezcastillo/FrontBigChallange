@@ -7,9 +7,8 @@ import { useAuthStore } from "../src/store/auth";
 
 const api = process.env.NEXT_PUBLIC_API_URL;
 
-const token = useAuthStore.getState().token;
-
 export const getSubmission = async (id: number) => {
+  const token = useAuthStore.getState().token;
   const res = await axios.get(`${api}/submission/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -19,6 +18,7 @@ export const getSubmission = async (id: number) => {
 };
 
 export const getSubmissions = async (currentPage: number, status: string) => {
+  const token = useAuthStore.getState().token;
   const res = await axios.get(
     `${api}/submission?page=${currentPage}&status=${status}`,
     {
@@ -35,6 +35,7 @@ export const getOwnSubmissions = async (
   currentPage: number,
   status: Status | ""
 ) => {
+  const token = useAuthStore.getState().token;
   const res = await axios.get(
     `${api}/submission/user/
         ${userId}
@@ -52,6 +53,7 @@ export const getOwnSubmissions = async (
 };
 
 export const acceptSubmission = async (id: number) => {
+  const token = useAuthStore.getState().token;
   const res = await axios.put(
     `${api}/submission/${id}/accept`,
     {},
@@ -65,6 +67,7 @@ export const acceptSubmission = async (id: number) => {
 };
 
 export const getPrescription = async (id: number) => {
+  const token = useAuthStore.getState().token;
   const res = await axios.get(`${api}/submission/${id}/prescription`, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -74,6 +77,7 @@ export const getPrescription = async (id: number) => {
 };
 
 export const uploadPrescription = async (id: number, file: File) => {
+  const token = useAuthStore.getState().token;
   const formData = new FormData();
   formData.append("prescription", file);
   const res = await axios.post(
@@ -90,6 +94,7 @@ export const uploadPrescription = async (id: number, file: File) => {
 };
 
 export const completeProfile = async (data: PatientInformationForm) => {
+  const token = useAuthStore.getState().token;
   const res = await axios.post(`${api}/complete-profile`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -99,6 +104,7 @@ export const completeProfile = async (data: PatientInformationForm) => {
 };
 
 export const createSubmission = async (data: CreateSubmissionForm) => {
+  const token = useAuthStore.getState().token;
   const res = await axios.post(`${api}/submission`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -116,3 +122,13 @@ export const registerUser = async (data: RegisterForm) => {
   const res = await axios.post(`${api}/register`, data);
   return res.data;
 };
+
+export const logoutUser = async () => {
+  const token = useAuthStore.getState().token;
+  const res = await axios.post(`${api}/logout`, {}, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+}

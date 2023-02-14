@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
 import { UIContext } from "../../context/ui";
 import { useAuthStore } from "../../src/store/auth";
+import { logoutUser } from '../../services/SubmissionService';
 import {
   HomeIcon,
   NewSubmissionIcon,
@@ -10,6 +10,7 @@ import {
   LightModeIcon,
   UserIcon,
 } from "../icons";
+import { useMutation } from "react-query";
 
 const tabs = [
   {
@@ -26,35 +27,24 @@ const tabs = [
   },
 ];
 
-const logout = async (token: string) => {
-  await axios.post(
-    "http://localhost/api/logout",
-    {},
-    {
-      headers: {
-        Authorization: "Bearer " + token,
-      },
-    }
-  );
-};
-
 export const Sidebar = () => {
   const { darkMode, activateDarkMode, deactivateDarkMode } =
     useContext(UIContext);
 
   const router = useRouter();
-  const { user, setUser, token, setToken } = useAuthStore();
+  const { user, setUser, setToken } = useAuthStore();
+
+  const mutationLogout = useMutation({
+    mutationFn: logoutUser,
+    onSuccess: () => {
+      setToken("");
+      setUser(null);
+      router.push("/auth/login");
+    }
+  });
 
   const handleLogout = () => {
-    logout(token)
-      .then(() => {
-        setToken("");
-        setUser(null);
-        router.push("/auth/login");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    mutationLogout.mutate();
   };
 
   return (
