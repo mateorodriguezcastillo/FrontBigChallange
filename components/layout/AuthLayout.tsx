@@ -32,7 +32,7 @@ export const AuthLayout: FC<HomeLayoutProps> = ({
             backgroundImage: "url(/images/auth-background.jpeg)",
           }}
         >
-          <div className="flex justify-center items-center h-full w-4/12 bg-gray-300 bg-opacity-60 dark:bg-black dark:bg-opacity-70">
+          <div className="flex h-full w-4/12 items-center justify-center bg-gray-300 bg-opacity-60 dark:bg-black dark:bg-opacity-70">
             <div className="flex w-8/12 flex-col">
               {children}
               <button

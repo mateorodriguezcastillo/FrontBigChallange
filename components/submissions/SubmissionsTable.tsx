@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useRouter } from "next/router";
-import { Pagination, Status, Submission } from "../../interfaces";
+import { Pagination, Status, Submission, User } from "../../interfaces";
 import { StatusBadge } from "./StatusBadge";
 import { ChevronIcon } from "../icons/Icons";
 import { getDateFormat, tw } from "../../utils";
@@ -11,6 +11,7 @@ interface SubmissionsTableProps {
   pagination: Pagination | null;
   status: Status | "";
   viewOwnSubmissions?: boolean;
+  user?: User | null;
   changeStatus: (status: Status | "") => void;
   changePage: (page: number) => void;
   changeViewOwnSubmissions?: (viewOwnSubmissions: boolean) => void;
@@ -21,6 +22,7 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
   pagination,
   status,
   viewOwnSubmissions,
+  user,
   changeStatus,
   changePage,
   changeViewOwnSubmissions,
@@ -109,14 +111,19 @@ export const SubmissionsTable: FC<SubmissionsTableProps> = ({
                   <StatusBadge status={submission.status} />
                 </td>
                 <td className="py-4 px-6 text-center">
-                  <button
-                    className="text-blue-600"
-                    onClick={() => {
-                      handleViewSubmission(submission.id);
-                    }}
-                  >
-                    View more
-                  </button>
+                  {user &&
+                    (user.id === submission.doctor?.id ||
+                      user.id === submission.patient?.id ||
+                      submission.status === Status.Pending) && (
+                      <button
+                        className="text-blue-600"
+                        onClick={() => {
+                          handleViewSubmission(submission.id);
+                        }}
+                      >
+                        View more
+                      </button>
+                    )}
                 </td>
               </tr>
             ))}

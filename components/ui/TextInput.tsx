@@ -37,7 +37,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
     };
 
     return (
-      <div className="mb-4 flex flex-grow flex-col">
+      <div className="flex flex-col flex-grow mb-4">
         <label
           htmlFor={inputName}
           className={tw(

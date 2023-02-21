@@ -22,8 +22,7 @@ export const DoctorTable = () => {
   return (
     <>
       {!allSubmissions.isLoading &&
-      !ownSubmissions.isLoading &&
-      submissions.length > 0 ? (
+      !ownSubmissions.isLoading && (
         <SubmissionsTable
           submissions={submissions}
           pagination={pagination}
@@ -32,12 +31,10 @@ export const DoctorTable = () => {
           changeStatus={setStatus}
           changePage={setCurrentPage}
           changeViewOwnSubmissions={setViewOwnSubmissions}
+          user={user}
         />
-      ) : (
-        !allSubmissions.isLoading &&
-        !ownSubmissions.isLoading &&
-        submissions.length === 0 && <NoContent contentType="submissions" />
       )}
     </>
   );
 };
+

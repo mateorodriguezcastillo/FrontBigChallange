@@ -125,10 +125,14 @@ export const registerUser = async (data: RegisterForm) => {
 
 export const logoutUser = async () => {
   const token = useAuthStore.getState().token;
-  const res = await axios.post(`${api}/logout`, {}, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const res = await axios.post(
+    `${api}/logout`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
   return res.data;
-}
+};

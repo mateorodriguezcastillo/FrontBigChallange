@@ -3260,7 +3260,12 @@ tailwind-merge@^1.8.1:
   resolved "https://registry.npmjs.org/tailwind-merge/-/tailwind-merge-1.8.1.tgz"
   integrity sha512-+fflfPxvHFr81hTJpQ3MIwtqgvefHZFUHFiIHpVIRXvG/nX9+gu2P7JNlFu2bfDMJ+uHhi/pUgzaYacMoXv+Ww==
 
-tailwindcss@^3, tailwindcss@^3.2.4:
+tailwindcss-autofill@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/tailwindcss-autofill/-/tailwindcss-autofill-1.0.2.tgz"
+  integrity sha512-gbm/ZKvU7EW2kzSoyCREwsNSQlsgEmNWnagggz6dGl1QgtM9RkmeWRicAY+eSnI9VFnfYCQOAthW9gDKZjda4Q==
+
+tailwindcss@^3, tailwindcss@^3.2.4, tailwindcss@>=2.0.0:
   version "3.2.4"
   resolved "https://registry.npmjs.org/tailwindcss/-/tailwindcss-3.2.4.tgz"
   integrity sha512-AhwtHCKMtR71JgeYDaswmZXhPcW9iuI9Sp2LvZPo9upDZ7231ZJ7eA9RaURbhpXGVlrjX4cFNlB4ieTetEb7hQ==
