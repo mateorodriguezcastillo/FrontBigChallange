@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import { UIContext } from "../../context/ui";
 import { useAuthStore } from "../../src/store/auth";
-import { logoutUser } from '../../services/SubmissionService';
+import { logoutUser } from "../../services/SubmissionService";
 import {
   HomeIcon,
   NewSubmissionIcon,
@@ -40,7 +40,7 @@ export const Sidebar = () => {
       setToken("");
       setUser(null);
       router.push("/auth/login");
-    }
+    },
   });
 
   const handleLogout = () => {

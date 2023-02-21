@@ -20,17 +20,19 @@ export const PatientTable = () => {
     <>
       {!loadingOwnSubmissions &&
       ownSubmissions &&
-      ownSubmissions.data.length > 0 ? (
+      (ownSubmissions.data.length > 0 || status !== "") ? (
         <SubmissionsTable
           submissions={ownSubmissions.data}
           pagination={ownSubmissions.pagination}
           status={status}
           changeStatus={setStatus}
           changePage={setCurrentPage}
+          user={user}
         />
       ) : (
         !loadingOwnSubmissions &&
         ownSubmissions &&
+        status === "" &&
         ownSubmissions.data.length === 0 && (
           <NoContent contentType="submissions" />
         )

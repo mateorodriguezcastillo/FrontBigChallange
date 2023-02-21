@@ -10,6 +10,7 @@ import { TextInput } from "../../components/ui";
 import { FormSchemaType } from "./register";
 import { useAuthStore } from "../../src/store/auth";
 import { loginUser } from "../../services/SubmissionService";
+import Link from "next/link";
 
 const rMsg = "This field is required";
 
@@ -59,7 +60,7 @@ const LoginPage = () => {
       pageDescription={"Enter requested data to sign in"}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mt-16 mr-4 ml-4 flex flex-col">
+        <div className="flex flex-col">
           <UserIcon className="m-auto h-24 w-24 text-white" />
           <TextInput
             inputClassName="w-full bg-white border border-gray-300 shadow-xl"
@@ -81,6 +82,9 @@ const LoginPage = () => {
           <Button className="mt-4 w-full shadow-xl" type="submit">
             Sign In
           </Button>
+          <Link className="mt-4 underline" href={"/auth/register"}>
+            Don't have an account? Sign Up
+          </Link>
         </div>
       </form>
     </AuthLayout>
