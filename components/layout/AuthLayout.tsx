@@ -32,13 +32,13 @@ export const AuthLayout: FC<HomeLayoutProps> = ({
             backgroundImage: "url(/images/auth-background.jpeg)",
           }}
         >
-          <div className="h-full w-4/12 bg-gray-300 bg-opacity-60 dark:bg-black dark:bg-opacity-70">
-            <div className="m-auto mt-10 flex h-3/5 w-9/12 flex-col justify-between">
+          <div className="flex h-full w-4/12 items-center justify-center bg-gray-300 bg-opacity-60 dark:bg-black dark:bg-opacity-70">
+            <div className="flex w-8/12 flex-col">
               {children}
               <button
                 id="theme-toggle"
                 type="button"
-                className="text-whte ml-auto mr-auto mb-6 h-14 w-14 rounded-lg p-2.5 text-sm hover:bg-gray-300 focus:outline-none dark:hover:bg-gray-700"
+                className="text-whte mt-4 ml-auto mr-auto mb-6 h-14 w-14 rounded-lg p-2.5 text-sm hover:bg-gray-300 focus:outline-none dark:hover:bg-gray-700"
                 onClick={darkMode ? deactivateDarkMode : activateDarkMode}
               >
                 {darkMode ? (

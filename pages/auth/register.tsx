@@ -8,6 +8,7 @@ import { AuthLayout } from "../../components/layout";
 import { RadioButton, TextInput } from "../../components/ui";
 import { useMutation } from "react-query";
 import { registerUser } from "../../services/SubmissionService";
+import Link from "next/link";
 
 export type FormSchemaType = z.infer<typeof schema>;
 
@@ -67,7 +68,7 @@ const RegisterPage = () => {
       pageDescription={"Enter requested data to sign up"}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-4 mr-4 ml-4 flex flex-col">
+        <div className="flex flex-col">
           <UserIcon className="m-auto h-24 w-24 text-white" />
           <TextInput
             inputClassName="w-full bg-white border border-gray-300 shadow-xl"
@@ -136,6 +137,9 @@ const RegisterPage = () => {
           >
             {mutationRegister.isLoading ? <LoadingIcon /> : "Sign Up"}
           </Button>
+          <Link className="mt-4 underline" href={"/auth/login"}>
+            Already have an account? Sign In
+          </Link>
         </div>
       </form>
     </AuthLayout>
